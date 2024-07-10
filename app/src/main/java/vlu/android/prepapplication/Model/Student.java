@@ -3,26 +3,26 @@ package vlu.android.prepapplication.Model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "teacher")
-public class Teacher {
+@Entity(tableName = "student")
+public class Student {
     @PrimaryKey(autoGenerate = true)
-    private int teacherId;
+    private int studentId;
     private String name;
     private String userName;
     private String password;
 
-    public Teacher(String name, String userName, String password) {
+    public Student(String name, String userName, String password) {
         this.name = name;
         this.userName = userName;
         this.password = password;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setTeacherId(int id) {
-        this.teacherId = id;
+    public void setStudentId(int id) {
+        this.studentId = id;
     }
 
     public String getName() {

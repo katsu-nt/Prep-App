@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Classroom"
+        android:id="@+id/classroom"
+        android:icon="@drawable/baseline_festival_24"/>
+    <item android:title="Subject"
+        android:id="@+id/subject"
+        android:icon="@drawable/baseline_assignment_24" />
+    <item android:title="Notification"
+        android:id="@+id/teachernotification"
+        android:icon="@drawable/baseline_notifications_none_24" />
+    <item android:title="Setting"
+        android:id="@+id/teachersetting"
+        android:icon="@drawable/baseline_more_horiz_24" />
+</menu>
