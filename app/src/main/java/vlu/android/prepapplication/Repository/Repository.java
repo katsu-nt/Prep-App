@@ -17,6 +17,7 @@ import vlu.android.prepapplication.Model.DAO.TeacherDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherNotificationDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherSubjectCrossRefDAO;
 import vlu.android.prepapplication.Model.PrepDatabase;
+import vlu.android.prepapplication.Model.Question;
 import vlu.android.prepapplication.Model.Student;
 import vlu.android.prepapplication.Model.Teacher;
 
@@ -51,9 +52,18 @@ public class Repository {
     public LiveData<Student> getStudentByUserName(String username){
         return studentDAO.getStudentByUserName(username);
     }
+    public LiveData<List<Question>>getAllQuestion(){
+        return  questionDAO.getAllQuestion();
+    }
+    public LiveData<Question> getQuestionByID(int id) {
+        return questionDAO.getQuestionByID(id);
+    }
     public void insert(Teacher teacher){
         PrepDatabase.databaseWriteExecutor.execute(()->{
             teacherDAO.insert(teacher);
         });
+    }
+    public void insert(Question question){
+        PrepDatabase.databaseWriteExecutor.execute(()-> questionDAO.insert(question));
     }
 }
