@@ -1,6 +1,5 @@
 package vlu.android.prepapplication;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -18,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.navigation.NavigationBarView;
 
 import vlu.android.prepapplication.Fragment.Teacher.ClassroomFragment;
+import vlu.android.prepapplication.Fragment.Teacher.QuestionFragment;
 import vlu.android.prepapplication.Fragment.Teacher.SubjectFragment;
 import vlu.android.prepapplication.ViewModel.TeacherViewModel;
 import vlu.android.prepapplication.databinding.ActivityTeacherBinding;
@@ -25,11 +25,12 @@ import vlu.android.prepapplication.databinding.ActivityTeacherBinding;
 public class TeacherActivity extends AppCompatActivity {
     ActivityTeacherBinding binding;
     private TeacherViewModel teacherViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding= ActivityTeacherBinding.inflate(getLayoutInflater());
+        binding = ActivityTeacherBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -41,7 +42,7 @@ public class TeacherActivity extends AppCompatActivity {
         binding.navTeacher.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getTitle().toString().trim()){
+                switch (item.getTitle().toString().trim()) {
                     case "Classroom":
                         replaceFragment(new ClassroomFragment());
                         break;
@@ -53,10 +54,11 @@ public class TeacherActivity extends AppCompatActivity {
             }
         });
     }
-    private void replaceFragment(Fragment fragment){
+
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.flTeacher,fragment);
+        fragmentTransaction.replace(R.id.flTeacher, fragment);
         fragmentTransaction.commit();
     }
 }

@@ -11,13 +11,13 @@ import java.util.List;
 import vlu.android.prepapplication.Model.Question;
 import vlu.android.prepapplication.Repository.Repository;
 
-public class SubjectViewModel extends AndroidViewModel {
+public class QuestionViewModel extends AndroidViewModel {
 
     private Repository repository;
     private LiveData<List<Question>> questionsLiveData;
     private LiveData<Question> questionLiveData;
 
-    public SubjectViewModel(@NonNull Application application) {
+    public QuestionViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
     }

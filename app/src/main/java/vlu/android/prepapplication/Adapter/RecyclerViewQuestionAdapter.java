@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vlu.android.prepapplication.Model.Question;
@@ -15,7 +16,11 @@ import vlu.android.prepapplication.R;
 
 public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerViewQuestionAdapter.QuestionViewHolder> {
 
-    private final List<Question> questions;
+    private List<Question> questions;
+
+    public RecyclerViewQuestionAdapter() {
+        this.questions = new ArrayList<>();
+    }
 
     public RecyclerViewQuestionAdapter(List<Question> questions) {
         this.questions = questions;
@@ -38,6 +43,11 @@ public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public int getItemCount() {
         return questions.size();
+    }
+
+    public void updateQuestions(List<Question> questions) {
+        this.questions = questions;
+        notifyDataSetChanged();
     }
 
     public static class QuestionViewHolder extends RecyclerView.ViewHolder {
