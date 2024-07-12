@@ -2,4 +2,8 @@
     <string name="app_name">PrepApplication</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Subject">Subject</string>
+    <string name="Classroom">Classroom</string>
+    <string name="Notification">Notification</string>
+    <string name="Setting">Setting</string>
 </resources>
