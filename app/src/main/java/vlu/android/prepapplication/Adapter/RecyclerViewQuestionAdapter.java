@@ -1,8 +1,10 @@
 package vlu.android.prepapplication.Adapter;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,8 +38,46 @@ public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         Question question = questions.get(position);
-        holder.getTvQuestionID().setText(String.valueOf(question.getQuestionId()));
-        holder.getTvQuestionContent().setText(question.getContent());
+
+        String questionId = String.valueOf(question.getQuestionId());
+        String questionContent = question.getContent();
+        String answerA = question.getAnswerA();
+        String answerB = question.getAnswerB();
+        String answerC = question.getAnswerC();
+        String answerD = question.getAnswerD();
+        String correctAnswer = question.getCorrectAnswer();
+
+        holder.getTvQuestionID().setText(questionId);
+        holder.getTvQuestionContent().setText(questionContent);
+
+        View itemView = holder.itemView;
+
+        int red = itemView.getResources().getColor(R.color.red, null);
+        int green = itemView.getResources().getColor(R.color.green, null);
+
+        itemView.setOnClickListener(view -> {
+            View dialogView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.dialog_question_detail_layout, (ViewGroup) itemView.getRootView(), false);
+
+            TextView tvQuestionID = dialogView.findViewById(R.id.tvQuestionID);
+            TextView tvQuestionContent = dialogView.findViewById(R.id.tvQuestionContent);
+            Button btnAnswerA = dialogView.findViewById(R.id.btnAnswerA);
+            Button btnAnswerB = dialogView.findViewById(R.id.btnAnswerB);
+            Button btnAnswerC = dialogView.findViewById(R.id.btnAnswerC);
+            Button btnAnswerD = dialogView.findViewById(R.id.btnAnswerD);
+
+            tvQuestionID.setText(questionId);
+            tvQuestionContent.setText(questionContent);
+            btnAnswerA.setText(dialogView.getContext().getString(R.string.answer_a, answerA));
+            btnAnswerA.setBackgroundColor(correctAnswer.equals(answerA) ? green : red);
+            btnAnswerB.setText(dialogView.getContext().getString(R.string.answer_b, answerB));
+            btnAnswerB.setBackgroundColor(correctAnswer.equals(answerB) ? green : red);
+            btnAnswerC.setText(dialogView.getContext().getString(R.string.answer_c, answerC));
+            btnAnswerC.setBackgroundColor(correctAnswer.equals(answerC) ? green : red);
+            btnAnswerD.setText(dialogView.getContext().getString(R.string.answer_d, answerD));
+            btnAnswerD.setBackgroundColor(correctAnswer.equals(answerD) ? green : red);
+
+            new AlertDialog.Builder(view.getContext()).setView(dialogView).setPositiveButton("Confirm", (dialogInterface, i) -> dialogInterface.cancel()).create().show();
+        });
     }
 
     @Override

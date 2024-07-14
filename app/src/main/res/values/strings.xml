@@ -6,4 +6,10 @@
     <string name="Classroom">Classroom</string>
     <string name="Notification">Notification</string>
     <string name="Setting">Setting</string>
+    <string name="question_content">Question content</string>
+    <string name="question_id">Question ID</string>
+    <string name="answer_a">A. %s</string>
+    <string name="answer_b">B. %s</string>
+    <string name="answer_c">C. %s</string>
+    <string name="answer_d">D. %s</string>
 </resources>

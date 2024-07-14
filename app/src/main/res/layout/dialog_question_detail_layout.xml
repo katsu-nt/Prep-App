@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@id/tvQuestionID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:text="@string/question_id"
+        android:textSize="12pt"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvQuestionContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:text="@string/question_content"
+        android:textSize="10pt" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray"
+        android:columnCount="2"
+        android:padding="20dp">
+
+        <Button
+            android:id="@+id/btnAnswerA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:maxWidth="125dp"
+            android:text="@string/answer_a" />
+
+        <Button
+            android:id="@+id/btnAnswerB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:maxWidth="125dp"
+            android:text="@string/answer_b" />
+
+        <Button
+            android:id="@+id/btnAnswerC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:maxWidth="125dp"
+            android:text="@string/answer_c" />
+
+        <Button
+            android:id="@+id/btnAnswerD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:maxWidth="125dp"
+            android:text="@string/answer_d" />
+
+    </GridLayout>
+
+</LinearLayout>
