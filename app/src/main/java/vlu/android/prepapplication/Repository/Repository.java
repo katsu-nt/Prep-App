@@ -25,15 +25,15 @@ import vlu.android.prepapplication.Model.Teacher;
 
 public class Repository {
     private TeacherDAO teacherDAO;
-    private  StudentDAO studentDAO;
-    private  ClassroomDAO classroomDAO;
-    private  SubjectDAO subjectDAO;
-    private  QuestionDAO questionDAO;
-    private  ExamDAO examDAO;
-    private  StudentNotificationDAO studentNotificationDAO;
-    private  TeacherSubjectCrossRefDAO teacherSubjectCrossRefDAO;
-    private  TeacherNotificationDAO teacherNotificationDAO;
-    private  ClassroomSubjectCrossRefDAO classroomSubjectCrossRefDAO;
+    private StudentDAO studentDAO;
+    private ClassroomDAO classroomDAO;
+    private SubjectDAO subjectDAO;
+    private QuestionDAO questionDAO;
+    private ExamDAO examDAO;
+    private StudentNotificationDAO studentNotificationDAO;
+    private TeacherSubjectCrossRefDAO teacherSubjectCrossRefDAO;
+    private TeacherNotificationDAO teacherNotificationDAO;
+    private ClassroomSubjectCrossRefDAO classroomSubjectCrossRefDAO;
 
     public Repository(Application application) {
         PrepDatabase db = PrepDatabase.getDatabase(application);
@@ -48,18 +48,25 @@ public class Repository {
         teacherNotificationDAO = db.teacherNotificationDAO();
         classroomSubjectCrossRefDAO = db.classroomSubjectCrossRefDAO();
     }
-    public LiveData<Teacher> getTeacherByUserName(String username){
+
+    public LiveData<Teacher> getTeacherByUserName(String username) {
         return teacherDAO.getTeacherByUserName(username);
     }
-    public LiveData<Student> getStudentByUserName(String username){
+
+    public LiveData<Student> getStudentByUserName(String username) {
         return studentDAO.getStudentByUserName(username);
     }
-    public LiveData<List<Question>>getAllQuestion(){
-        return  questionDAO.getAllQuestion();
+
+    public LiveData<List<Question>> getAllQuestion() {
+        return questionDAO.getAllQuestion();
     }
+
     public LiveData<Question> getQuestionByID(int id) {
         return questionDAO.getQuestionByID(id);
     }
+    public void delete(Question question) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.deleteQuestion(question));
+}
     public LiveData<List<Classroom>>getAllClassroom(){
         return classroomDAO.getAllClassroom();
     }
@@ -85,8 +92,6 @@ public class Repository {
         PrepDatabase.databaseWriteExecutor.execute(() -> {
             classroomDAO.insert(classroom);
         });
-
-
     }
 
     public void insertSubject(Subject subject) {
