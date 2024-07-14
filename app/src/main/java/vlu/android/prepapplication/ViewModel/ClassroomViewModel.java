@@ -33,4 +33,7 @@ public class ClassroomViewModel extends AndroidViewModel {
         return classroomLiveData;
     }
 
+    public void delete(Classroom classroom) {
+        repository.delete(classroom);
+    }
 }

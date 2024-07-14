@@ -3,22 +3,19 @@ package vlu.android.prepapplication.Fragment.Teacher;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import vlu.android.prepapplication.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SubjectFragment#newInstance} factory method to
+ * Use the {@link DetailedSubjectFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SubjectFragment extends Fragment {
+public class DetailedSubjectFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +26,7 @@ public class SubjectFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SubjectFragment() {
+    public DetailedSubjectFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +36,11 @@ public class SubjectFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SubjectFragment.
+     * @return A new instance of fragment DetailedSubjectFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SubjectFragment newInstance(String param1, String param2) {
-        SubjectFragment fragment = new SubjectFragment();
+    public static DetailedSubjectFragment newInstance(String param1, String param2) {
+        DetailedSubjectFragment fragment = new DetailedSubjectFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,23 +61,6 @@ public class SubjectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_subject, container, false);
-
-        Button btnToQuestion = view.findViewById(R.id.btnToQuestion);
-        btnToQuestion.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.flTeacher, new QuestionFragment());
-            fragmentTransaction.commit();
-        });
-
-        Button btnToFindSubject = view.findViewById(R.id.btnToFindSubject);
-        btnToFindSubject.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.flTeacher, new FindFragment());
-            fragmentTransaction.commit();
-        });
-        return view;
+        return inflater.inflate(R.layout.fragment_detailed_subject, container, false);
     }
 }

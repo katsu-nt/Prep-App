@@ -42,4 +42,7 @@ public class Classroom {
     public int getId() {
         return 0;
     }
+
+    public void deleteClassroom(Classroom classroom) {
+    }
 }
