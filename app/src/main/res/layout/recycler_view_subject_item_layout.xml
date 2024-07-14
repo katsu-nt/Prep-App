@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="@color/light_gray"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSubjectNameOrID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:textStyle="bold"
+        android:layout_marginTop="9dp"
+        android:textColor="#9C27B0"
+        android:text="Subject name - Subject ID" />
+
+    <TextView
+        android:id="@+id/tvNumberOfQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="7pt"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/baseline_quiz_24"
+        android:textColor="#BA000000"
+        android:text="100 Questions" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="11pt"
+        android:textStyle="bold"
+        android:layout_marginTop="9dp"
+        android:textColor="#9C27B0"
+        android:text="About" />
+
+    <TextView
+        android:id="@+id/tvAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="7pt"
+        android:layout_marginTop="10dp"
+        android:textColor="#BA000000"
+        android:text="Information" />
+
+    <Button
+        android:id="@+id/btnViewDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:drawableStart="@drawable/baseline_edit_24"
+        android:textSize="10pt"
+        android:text="View detail" />
+</LinearLayout>
