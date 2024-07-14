@@ -1,5 +1,6 @@
 package vlu.android.prepapplication.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,15 @@ public class RecyclerViewSubjectAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<Subject> subjects;
     public RecyclerViewSubjectAdapter() {this.subjects = new ArrayList<>();}
     public RecyclerViewSubjectAdapter(List<Subject> subjects) {this.subjects = subjects;}
+    private onItemClickListener listener;
+
+    public interface onItemClickListener{
+        void onItemClick(Subject subject);
+    }
+
+    public void setOnItemClickListener(onItemClickListener listener){
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -33,6 +43,7 @@ public class RecyclerViewSubjectAdapter extends RecyclerView.Adapter<RecyclerVie
         holder.getTvSubjectNameOrID().setText(subject.getName() + " - " + subject.getSubjectId());
 //        holder.getTvSubjectNumberOfQuestion().setText("Number of questions: " + /* insert logic to get number of questions */);
         holder.getTvAbout().setText(subject.getDescription());
+        holder.bind(subject, listener);
     }
 
     @Override
@@ -64,6 +75,19 @@ public class RecyclerViewSubjectAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public TextView getTvAbout(){
             return tvAbout;
+        }
+
+        public void bind(final Subject subject, final onItemClickListener listener){
+            tvSubjectNameOrID.setText(subject.getName() + " - " + subject.getSubjectId());
+            tvAbout.setText(subject.getDescription());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null){
+                        listener.onItemClick(subject);
+                    }
+                }
+            });
         }
     }
 }
