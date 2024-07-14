@@ -86,12 +86,13 @@ public class QuestionFragment extends Fragment {
         questionViewModel = new ViewModelProvider((requireActivity())).get(QuestionViewModel.class);
 //        subjectViewModel.insert(new Question("1 + 1 = ?", "3", "1", "0", "2", "2"));
 //        subjectViewModel.insert(new Question("Java được phát minh vào năm?", "1994", "1995", "1996", "2024", "1995"));
-        RecyclerViewQuestionAdapter adapter = new RecyclerViewQuestionAdapter();
+        RecyclerViewQuestionAdapter adapter = new RecyclerViewQuestionAdapter(questionViewModel);
         rcvQuestion.setAdapter(adapter);
         questionViewModel.getAllQuestionLiveData().observe(getViewLifecycleOwner(), adapter::updateQuestions);
 
-        RecyclerViewQuestionAdapter searchAdapter = new RecyclerViewQuestionAdapter();
+        RecyclerViewQuestionAdapter searchAdapter = new RecyclerViewQuestionAdapter(questionViewModel);
         EditText edtSearchByID = view.findViewById(R.id.edtSearchByID);
+
         edtSearchByID.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

@@ -1,6 +1,7 @@
 package vlu.android.prepapplication.Adapter;
 
 import android.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +16,16 @@ import java.util.List;
 
 import vlu.android.prepapplication.Model.Question;
 import vlu.android.prepapplication.R;
+import vlu.android.prepapplication.ViewModel.QuestionViewModel;
 
 public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerViewQuestionAdapter.QuestionViewHolder> {
 
     private List<Question> questions;
+    private final QuestionViewModel questionViewModel;
 
-    public RecyclerViewQuestionAdapter() {
+    public RecyclerViewQuestionAdapter(QuestionViewModel questionViewModel) {
         this.questions = new ArrayList<>();
-    }
-
-    public RecyclerViewQuestionAdapter(List<Question> questions) {
-        this.questions = questions;
+        this.questionViewModel = questionViewModel;
     }
 
     @NonNull
@@ -76,7 +76,24 @@ public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
             btnAnswerD.setText(dialogView.getContext().getString(R.string.answer_d, answerD));
             btnAnswerD.setBackgroundColor(correctAnswer.equals(answerD) ? green : red);
 
-            new AlertDialog.Builder(view.getContext()).setView(dialogView).setPositiveButton("Confirm", (dialogInterface, i) -> dialogInterface.cancel()).create().show();
+            new AlertDialog.
+                    Builder(view.getContext()).
+                    setView(dialogView).
+                    setPositiveButton("Confirm", (dialogInterface, i) -> dialogInterface.cancel()).
+                    create().
+                    show();
+        });
+
+        itemView.setOnLongClickListener(view -> {
+            new AlertDialog.Builder(view.getContext()).
+                    setTitle(String.format(
+                            "Are you sure you want to delete question with id: %s",
+                            questionId)
+                    ).
+                    setPositiveButton("Confirm", (dialogInterface, i) -> questionViewModel.delete(question)).
+                    setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
+                    show();
+            return true;
         });
     }
 
