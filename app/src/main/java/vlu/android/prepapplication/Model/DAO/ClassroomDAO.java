@@ -16,4 +16,9 @@ public interface ClassroomDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public void insert (Classroom classroom);
 
+
+    @Query("SELECT * FROM classroom")
+    LiveData<List<Classroom>> getAllClassroom();
+    @Query("SELECT * FROM classroom WHERE classroomId = :id")
+    LiveData<Classroom> getQuestionByID(int id);
 }
