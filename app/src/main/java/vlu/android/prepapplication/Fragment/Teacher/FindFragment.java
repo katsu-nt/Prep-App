@@ -24,7 +24,14 @@ import vlu.android.prepapplication.Model.Subject;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.SubjectViewModel;
 
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link FindFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class FindFragment extends Fragment {
+
 
     private SubjectViewModel subjectViewModel;
     private RecyclerViewSubjectAdapter adapter;
