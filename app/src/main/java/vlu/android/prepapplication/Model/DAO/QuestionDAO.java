@@ -2,6 +2,7 @@ package vlu.android.prepapplication.Model.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -19,5 +20,8 @@ public interface QuestionDAO {
     public LiveData<List<Question>> getAllQuestion();
 
     @Query("SELECT * FROM question WHERE questionId = :id")
-    public  LiveData<Question> getQuestionByID(int id);
+    public LiveData<Question> getQuestionByID(int id);
+
+    @Delete
+    public void deleteQuestion(Question question);
 }

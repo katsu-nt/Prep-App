@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tvQuestionContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/edtQuestionContent"
+        android:text="@string/question_content" />
+
+    <EditText
+        android:id="@+id/edtQuestionContent"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvQuestionContent"
+        android:autofillHints="question content"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/tvAnswerA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtQuestionContent"
+        android:labelFor="@id/edtAnswerA"
+        android:text="Answer A" />
+
+    <EditText
+        android:id="@+id/edtAnswerA"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAnswerA"
+        android:autofillHints="question content"
+        android:inputType="text" />
+
+
+    <TextView
+        android:id="@+id/tvAnswerB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtAnswerA"
+        android:labelFor="@id/edtAnswerB"
+        android:text="Answer B" />
+
+    <EditText
+        android:id="@+id/edtAnswerB"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAnswerB"
+        android:autofillHints="question content"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/tvAnswerC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtAnswerB"
+        android:labelFor="@id/edtAnswerC"
+        android:text="Answer C" />
+
+    <EditText
+        android:id="@+id/edtAnswerC"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAnswerC"
+        android:autofillHints="question content"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/tvAnswerD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtAnswerC"
+        android:labelFor="@id/edtAnswerD"
+        android:text="Answer D" />
+
+    <EditText
+        android:id="@+id/edtAnswerD"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAnswerD"
+        android:autofillHints="question content"
+        android:inputType="text" />
+
+    <TextView
+        android:id="@+id/tvCorrectAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtAnswerD"
+        android:text="Correct Answer" />
+
+    <Spinner
+        android:id="@+id/spnCorrectAnswer"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCorrectAnswer"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:spinnerMode="dialog" />
+
+</RelativeLayout>

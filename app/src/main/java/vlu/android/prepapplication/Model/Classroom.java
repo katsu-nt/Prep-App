@@ -38,4 +38,11 @@ public class Classroom {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getId() {
+        return 0;
+    }
+
+    public void deleteClassroom(Classroom classroom) {
+    }
 }

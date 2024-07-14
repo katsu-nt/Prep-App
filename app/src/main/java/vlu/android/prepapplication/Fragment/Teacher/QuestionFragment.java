@@ -1,5 +1,6 @@
 package vlu.android.prepapplication.Fragment.Teacher;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,8 +19,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Collections;
@@ -84,14 +87,15 @@ public class QuestionFragment extends Fragment {
 
         RecyclerView rcvQuestion = view.findViewById(R.id.rcvQuestion);
         questionViewModel = new ViewModelProvider((requireActivity())).get(QuestionViewModel.class);
-//        subjectViewModel.insert(new Question("1 + 1 = ?", "3", "1", "0", "2", "2"));
-//        subjectViewModel.insert(new Question("Java được phát minh vào năm?", "1994", "1995", "1996", "2024", "1995"));
-        RecyclerViewQuestionAdapter adapter = new RecyclerViewQuestionAdapter();
+//        questionViewModel.insert(new Question("1 + 1 = ?", "3", "1", "0", "2", "2"));
+//        questionViewModel.insert(new Question("Java được phát minh vào năm?", "1994", "1995", "1996", "2024", "1995"));
+        RecyclerViewQuestionAdapter adapter = new RecyclerViewQuestionAdapter(questionViewModel);
         rcvQuestion.setAdapter(adapter);
         questionViewModel.getAllQuestionLiveData().observe(getViewLifecycleOwner(), adapter::updateQuestions);
 
-        RecyclerViewQuestionAdapter searchAdapter = new RecyclerViewQuestionAdapter();
+        RecyclerViewQuestionAdapter searchAdapter = new RecyclerViewQuestionAdapter(questionViewModel);
         EditText edtSearchByID = view.findViewById(R.id.edtSearchByID);
+
         edtSearchByID.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -133,6 +137,61 @@ public class QuestionFragment extends Fragment {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.flTeacher, new SubjectFragment());
             fragmentTransaction.commit();
+        });
+
+        Button btnAddQuestion = view.findViewById(R.id.btnAddQuestion);
+        btnAddQuestion.setOnClickListener(v -> {
+            View dialog = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_question_layout, (ViewGroup) view.getRootView(), false);
+            EditText edtQuestionContent = dialog.findViewById(R.id.edtQuestionContent);
+            EditText edtAnswerA = dialog.findViewById(R.id.edtAnswerA);
+            EditText edtAnswerB = dialog.findViewById(R.id.edtAnswerB);
+            EditText edtAnswerC = dialog.findViewById(R.id.edtAnswerC);
+            EditText edtAnswerD = dialog.findViewById(R.id.edtAnswerD);
+            Spinner spinnerCorrectQuestion = dialog.findViewById(R.id.spnCorrectAnswer);
+            spinnerCorrectQuestion.setAdapter(new ArrayAdapter<>(view.getContext(),
+                    androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
+                    new String[]{"A", "B", "C", "D"}));
+            new AlertDialog.
+                    Builder(view.getContext()).
+                    setView(dialog).setPositiveButton("Add", (dialogInterface, i) -> {
+                        String content = edtQuestionContent.getText().toString();
+                        String answerA = edtAnswerA.getText().toString();
+                        String answerB = edtAnswerB.getText().toString();
+                        String answerC = edtAnswerC.getText().toString();
+                        String answerD = edtAnswerD.getText().toString();
+
+                        if (content.isEmpty()) {
+                            Toast.makeText(getContext(), "Missing question content", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (answerA.isEmpty() || answerB.isEmpty() || answerC.isEmpty() || answerD.isEmpty()) {
+                            Toast.makeText(getContext(), "Missing answer(s)", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        String correctAnswer = (String) spinnerCorrectQuestion.getSelectedItem();
+                        String answer = answerA;
+
+                        switch (correctAnswer) {
+                            case "B":
+                                answer = answerB;
+                                break;
+                            case "C":
+                                answer = answerC;
+                                break;
+                            case "D":
+                                answer = answerD;
+                                break;
+                        }
+
+                        questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer));
+                        Toast.makeText(getContext(), "Successfully insert new question", Toast.LENGTH_LONG).show();
+                        dialogInterface.cancel();
+                    }).
+                    setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
+                    create().
+                    show();
         });
 
         return view;
