@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.DAO.ClassroomDAO;
 import vlu.android.prepapplication.Model.DAO.ClassroomSubjectCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.ExamDAO;
@@ -19,6 +20,7 @@ import vlu.android.prepapplication.Model.DAO.TeacherSubjectCrossRefDAO;
 import vlu.android.prepapplication.Model.PrepDatabase;
 import vlu.android.prepapplication.Model.Question;
 import vlu.android.prepapplication.Model.Student;
+import vlu.android.prepapplication.Model.Subject;
 import vlu.android.prepapplication.Model.Teacher;
 
 public class Repository {
@@ -62,18 +64,41 @@ public class Repository {
     public LiveData<Question> getQuestionByID(int id) {
         return questionDAO.getQuestionByID(id);
     }
-
-    public void insert(Teacher teacher) {
-        PrepDatabase.databaseWriteExecutor.execute(() -> {
+    public void delete(Question question) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.deleteQuestion(question));
+}
+    public LiveData<List<Classroom>>getAllClassroom(){
+        return classroomDAO.getAllClassroom();
+    }
+    public LiveData<Classroom> getClassroomByID(int id){
+        return classroomDAO.getQuestionByID (id);
+    }
+    public void insert(Teacher teacher){
+        PrepDatabase.databaseWriteExecutor.execute(()->{
             teacherDAO.insert(teacher);
         });
     }
-
-    public void insert(Question question) {
-        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.insert(question));
+    public LiveData<List<Subject>> getAllSubject(){
+        return subjectDAO.getAllSubject();
+    }
+    public LiveData<Subject> getSubjectByID(int id) {
+        return subjectDAO.getSubjectByID(id);
+    }
+    public LiveData<List<Subject>> getSubjectByName(String name) {return subjectDAO.getSubjectByName(name);}
+    public void insert(Question question){
+        PrepDatabase.databaseWriteExecutor.execute(()-> questionDAO.insert(question));
+    }
+    public void insert(Classroom classroom) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> {
+            classroomDAO.insert(classroom);
+        });
     }
 
-    public void delete(Question question) {
-        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.deleteQuestion(question));
+    public void insertSubject(Subject subject) {
+        PrepDatabase.databaseWriteExecutor.execute(()-> subjectDAO.insert(subject));
+    }
+
+    public void delete(Classroom classroom) {
+        PrepDatabase.databaseWriteExecutor.execute(()-> classroom.deleteClassroom(classroom));
     }
 }

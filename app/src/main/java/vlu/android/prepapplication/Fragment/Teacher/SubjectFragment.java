@@ -74,6 +74,13 @@ public class SubjectFragment extends Fragment {
             fragmentTransaction.commit();
         });
 
+        Button btnToFindSubject = view.findViewById(R.id.btnToFindSubject);
+        btnToFindSubject.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.flTeacher, new FindFragment());
+            fragmentTransaction.commit();
+        });
         return view;
     }
 }
