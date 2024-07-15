@@ -1,106 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvQuestionContent"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:labelFor="@id/edtQuestionContent"
-        android:text="@string/question_content" />
+        android:gravity="center_horizontal"
+        android:padding="10dp">
 
-    <EditText
-        android:id="@+id/edtQuestionContent"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvQuestionContent"
-        android:autofillHints="question content"
-        android:inputType="text" />
+        <TextView
+            android:id="@+id/tvQuestionContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/edtQuestionContent"
+            android:text="Content"
+            android:textSize="10pt"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvAnswerA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edtQuestionContent"
-        android:labelFor="@id/edtAnswerA"
-        android:text="Answer A" />
+        <EditText
+            android:id="@+id/edtQuestionContent"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvQuestionContent"
+            android:autofillHints="question content"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:textSize="8pt" />
 
-    <EditText
-        android:id="@+id/edtAnswerA"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvAnswerA"
-        android:autofillHints="question content"
-        android:inputType="text" />
+        <TextView
+            android:id="@+id/tvAnswerA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtQuestionContent"
+            android:labelFor="@id/edtAnswerA"
+            android:text="Answer A"
+            android:textSize="10pt"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edtAnswerA"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAnswerA"
+            android:autofillHints="question content"
+            android:inputType="text"
+            android:textSize="8pt" />
 
 
-    <TextView
-        android:id="@+id/tvAnswerB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edtAnswerA"
-        android:labelFor="@id/edtAnswerB"
-        android:text="Answer B" />
+        <TextView
+            android:id="@+id/tvAnswerB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtAnswerA"
+            android:labelFor="@id/edtAnswerB"
+            android:text="Answer B"
+            android:textSize="10pt"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtAnswerB"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvAnswerB"
-        android:autofillHints="question content"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/edtAnswerB"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAnswerB"
+            android:autofillHints="question content"
+            android:inputType="text"
+            android:textSize="8pt" />
 
-    <TextView
-        android:id="@+id/tvAnswerC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edtAnswerB"
-        android:labelFor="@id/edtAnswerC"
-        android:text="Answer C" />
+        <TextView
+            android:id="@+id/tvAnswerC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtAnswerB"
+            android:labelFor="@id/edtAnswerC"
+            android:text="Answer C"
+            android:textSize="10pt"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtAnswerC"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvAnswerC"
-        android:autofillHints="question content"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/edtAnswerC"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAnswerC"
+            android:autofillHints="question content"
+            android:inputType="text"
+            android:textSize="8pt" />
 
-    <TextView
-        android:id="@+id/tvAnswerD"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edtAnswerC"
-        android:labelFor="@id/edtAnswerD"
-        android:text="Answer D" />
+        <TextView
+            android:id="@+id/tvAnswerD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtAnswerC"
+            android:labelFor="@id/edtAnswerD"
+            android:text="Answer D"
+            android:textSize="10pt"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/edtAnswerD"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvAnswerD"
-        android:autofillHints="question content"
-        android:inputType="text" />
+        <EditText
+            android:id="@+id/edtAnswerD"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAnswerD"
+            android:autofillHints="question content"
+            android:inputType="text"
+            android:textSize="8pt" />
 
-    <TextView
-        android:id="@+id/tvCorrectAnswer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/edtAnswerD"
-        android:text="Correct Answer" />
+        <RadioGroup
+            android:id="@+id/rdgCorrectAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/vEnd"
+            android:layout_below="@id/edtQuestionContent"
+            android:layout_toEndOf="@id/edtAnswerA"
+            android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/spnCorrectAnswer"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvCorrectAnswer"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:spinnerMode="dialog" />
+            <RadioButton
+                android:id="@+id/rdoAnswerA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true" />
 
-</RelativeLayout>
+            <RadioButton
+                android:id="@+id/rdoAnswerB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <RadioButton
+                android:id="@+id/rdoAnswerC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <RadioButton
+                android:id="@+id/rdoAnswerD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </RadioGroup>
+
+        <View
+            android:id="@+id/vEnd"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_below="@id/edtAnswerD" />
+
+    </RelativeLayout>
+
+</ScrollView>
