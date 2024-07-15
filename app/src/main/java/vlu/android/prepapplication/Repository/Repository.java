@@ -141,9 +141,20 @@ public class Repository {
         });
     }
 
-    public void insert(Classroom classroom) {
+    public void insert(Classroom classroom, Runnable onSuccess, Consumer<String> onFailure) {
         PrepDatabase.databaseWriteExecutor.execute(() -> {
+            String nameClassroom = classroom.getName();
+            String description = classroom.getDescription();
+            if (nameClassroom.isEmpty() || description.isEmpty())
+            {
+                if (onFailure != null){
+                    onFailure.accept("There is a missing field in the classroom");
+                }
+            }
             classroomDAO.insert(classroom);
+            if (onSuccess !=null){
+                onSuccess.run();
+            }
         });
     }
 
