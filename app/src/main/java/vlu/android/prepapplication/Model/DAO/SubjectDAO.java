@@ -2,6 +2,7 @@ package vlu.android.prepapplication.Model.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -23,4 +24,7 @@ public interface SubjectDAO {
 
     @Query("SELECT * FROM subject WHERE name LIKE '%' || :name || '%'")
     public LiveData<List<Subject>> getSubjectByName(String name);
+
+    @Delete
+    public void deleteSubjet(Subject subject);
 }

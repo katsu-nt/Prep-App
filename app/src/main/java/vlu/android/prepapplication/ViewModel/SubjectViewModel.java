@@ -38,4 +38,8 @@ public class SubjectViewModel extends AndroidViewModel {
     public void insert(Subject subject) {
         repository.insertSubject(subject);
     }
+
+    public void delete(Subject subject){
+        repository.delete(subject);
+    }
 }
