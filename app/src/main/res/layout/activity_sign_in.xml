@@ -6,12 +6,24 @@
     android:layout_height="match_parent"
     android:id="@+id/main"
     tools:context=".SignInActivity">
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnTeacher"
-        android:text="Teacher"
-        tools:ignore="MissingConstraints">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+       <com.google.android.material.button.MaterialButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/btnTeacher"
+           android:text="Teacher"
+           tools:ignore="MissingConstraints">
+       </com.google.android.material.button.MaterialButton>
+       <com.google.android.material.button.MaterialButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/btnStudent"
+           android:text="Student"
+           tools:ignore="MissingConstraints">
 
-    </com.google.android.material.button.MaterialButton>
+       </com.google.android.material.button.MaterialButton>
+   </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

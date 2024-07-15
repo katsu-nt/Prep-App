@@ -12,10 +12,10 @@ import vlu.android.prepapplication.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ClassroomDetailFragment#newInstance} factory method to
+ * Use the {@link DetailedClassroomFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ClassroomDetailFragment extends Fragment {
+public class DetailedClassroomFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class ClassroomDetailFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ClassroomDetailFragment() {
+    public DetailedClassroomFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class ClassroomDetailFragment extends Fragment {
      * @return A new instance of fragment ClassroomDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ClassroomDetailFragment newInstance(String param1, String param2) {
-        ClassroomDetailFragment fragment = new ClassroomDetailFragment();
+    public static DetailedClassroomFragment newInstance(String param1, String param2) {
+        DetailedClassroomFragment fragment = new DetailedClassroomFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

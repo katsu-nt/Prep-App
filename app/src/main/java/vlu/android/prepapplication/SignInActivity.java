@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class SignInActivity extends AppCompatActivity {
-    Button btnTeacher;
+    Button btnTeacher,btnStudent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +24,19 @@ public class SignInActivity extends AppCompatActivity {
             return insets;
         });
         btnTeacher = findViewById(R.id.btnTeacher);
+        btnStudent = findViewById(R.id.btnStudent);
         btnTeacher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, TeacherActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignInActivity.this, StudentActivity.class);
+                intent.putExtra("studentId",1);
                 startActivity(intent);
             }
         });
