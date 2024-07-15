@@ -19,7 +19,8 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import vlu.android.prepapplication.Fragment.Teacher.ClassroomDetailFragment;
+
+import vlu.android.prepapplication.Fragment.Teacher.DetailedClassroomFragment;
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.ClassroomViewModel;
@@ -75,7 +76,7 @@ public class GridViewClassroomAdapter extends BaseAdapter {
                 AppCompatActivity activity = (AppCompatActivity) context;
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment fragment = new ClassroomDetailFragment();
+                Fragment fragment = new DetailedClassroomFragment();
                 fragmentTransaction.replace(R.id.flTeacher, fragment);
                 fragmentTransaction.commit();
             }
