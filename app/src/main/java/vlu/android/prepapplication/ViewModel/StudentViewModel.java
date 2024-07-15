@@ -23,8 +23,8 @@ public class StudentViewModel extends AndroidViewModel {
     public void insertStudent(Student student){
         repository.insertStudent(student);
     }
-    public void insertClassroom(Classroom classroom){
-        repository.insert(classroom);
-    }
+//    public void insertClassroom(Classroom classroom){
+//        repository.insert(classroom);
+//    }
 
 }
