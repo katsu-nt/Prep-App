@@ -1,5 +1,6 @@
 package vlu.android.prepapplication.Fragment.Teacher;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -54,6 +56,9 @@ public class FindFragment extends Fragment {
         edtSearchSubj = view.findViewById(R.id.edtSearchSubj);
 
         subjectViewModel = new ViewModelProvider(requireActivity()).get(SubjectViewModel.class);
+        //test
+//        subjectViewModel.insert(new Subject("Lập trình hướng đôi tượng", "Học C#"));
+//        subjectViewModel.insert(new Subject("Toan roi rac", "Học c++"));
 
         adapter = new RecyclerViewSubjectAdapter(subjectViewModel); // Fix constructor
         recySubject.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -87,6 +92,33 @@ public class FindFragment extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
+        });
+
+        Button btnCreateSub = view.findViewById(R.id.btnCreateSub);
+        btnCreateSub.setOnClickListener(v-> {
+            View dialog = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_subject_layout, (ViewGroup) view.getRootView(), false);
+            EditText edtCreateName = dialog.findViewById(R.id.edtCreateName);
+            EditText edtCreateDescription = dialog.findViewById(R.id.edtCreateDescription);
+
+            new AlertDialog.Builder(view.getContext()).
+                    setView(dialog).setPositiveButton("Add", ((dialogInterface, i) -> {
+                        String name = edtCreateName.getText().toString();
+                        String description = edtCreateDescription.getText().toString();
+
+                        if (name.isEmpty()){
+                            Toast.makeText(getContext(), "Missing name subject content", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (description.isEmpty()){
+                            Toast.makeText(getContext(), "Missing description subject content", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        subjectViewModel.insert(new Subject(name, description));
+                        Toast.makeText(getContext(), "Successfully insert new subject", Toast.LENGTH_LONG).show();
+                        dialogInterface.cancel();
+                    })).setNegativeButton("Cansel", ((dialogInterface, i) -> dialogInterface.cancel())).create().show();
         });
 
         return view;
