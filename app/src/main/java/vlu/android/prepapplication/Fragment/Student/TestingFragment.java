@@ -2,13 +2,24 @@ package vlu.android.prepapplication.Fragment.Student;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import vlu.android.prepapplication.Fragment.Student.CustomDialogFragment.JoinDialogFragment;
+import vlu.android.prepapplication.Model.Student;
 import vlu.android.prepapplication.R;
+import vlu.android.prepapplication.ViewModel.StudentViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +36,9 @@ public class TestingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    EditText edtSearhToJoin;
+    private Student student;
+    private StudentViewModel studentViewModel;
 
     public TestingFragment() {
         // Required empty public constructor
@@ -63,4 +77,33 @@ public class TestingFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_testing, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        addControl(view);
+        edtSearhToJoin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    JoinDialogFragment joinDialogFragment = new JoinDialogFragment("Join with 110","Make sure you want join class with ID 110?");
+                    joinDialogFragment.show(getActivity().getSupportFragmentManager(), null);
+                    joinDialogFragment.setCancelable(false);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    void addControl(View view){
+        edtSearhToJoin = view.findViewById(R.id.edtSearchToJoin);
+        studentViewModel = new ViewModelProvider((requireActivity())).get(StudentViewModel.class);
+        studentViewModel.getStudentById(1).observe(getViewLifecycleOwner(),item->{
+            student = item;
+        });
+
+    }
+
 }

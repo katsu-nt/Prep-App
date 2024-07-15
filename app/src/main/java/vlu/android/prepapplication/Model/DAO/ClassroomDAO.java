@@ -11,6 +11,7 @@ import androidx.room.Transaction;
 import java.util.List;
 
 import vlu.android.prepapplication.Model.Classroom;
+import vlu.android.prepapplication.Model.ClassroomWithStudents;
 
 @Dao
 public interface ClassroomDAO {
@@ -22,6 +23,11 @@ public interface ClassroomDAO {
     LiveData<List<Classroom>> getAllClassroom();
     @Query("SELECT * FROM classroom WHERE classroomId = :id")
     LiveData<Classroom> getQuestionByID(int id);
+    @Query("SELECT * FROM classroom WHERE classroomId = :id")
+    LiveData<Classroom> getClassroomById(int id);
     @Delete
     public void deleteClassroom(Classroom classroom);
+    @Transaction
+    @Query("SELECT * FROM classroom")
+    public LiveData<List<ClassroomWithStudents>> getClassroomWithStudents();
 }

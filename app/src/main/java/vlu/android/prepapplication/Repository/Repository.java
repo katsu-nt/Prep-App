@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import vlu.android.prepapplication.Model.Classroom;
+import vlu.android.prepapplication.Model.ClassroomWithStudents;
 import vlu.android.prepapplication.Model.DAO.ClassroomDAO;
 import vlu.android.prepapplication.Model.DAO.ClassroomSubjectCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.ExamDAO;
@@ -101,4 +102,14 @@ public class Repository {
     public void delete(Classroom classroom) {
         PrepDatabase.databaseWriteExecutor.execute(()-> classroom.deleteClassroom(classroom));
     }
+    public void insertStudent(Student  student){
+        PrepDatabase.databaseWriteExecutor.execute(()-> studentDAO.insert(student));
+    }
+    public LiveData<Student> getStudentById(int id){
+        return studentDAO.getStudentById(id);
+    }
+    public LiveData<List<ClassroomWithStudents>> getClassroomWithStudents(){
+        return classroomDAO.getClassroomWithStudents();
+    }
+
 }

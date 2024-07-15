@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -21,6 +22,7 @@ import vlu.android.prepapplication.Fragment.Student.HistoryFragment;
 import vlu.android.prepapplication.Fragment.Student.TestingFragment;
 import vlu.android.prepapplication.Fragment.Teacher.ClassroomFragment;
 import vlu.android.prepapplication.Fragment.Teacher.SubjectFragment;
+import vlu.android.prepapplication.Model.Student;
 import vlu.android.prepapplication.ViewModel.StudentViewModel;
 import vlu.android.prepapplication.ViewModel.TeacherViewModel;
 import vlu.android.prepapplication.databinding.ActivityStudentBinding;
@@ -42,7 +44,10 @@ public class StudentActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
         int idStudent = intent.getIntExtra("studentId",-1);
+        studentViewModel = new ViewModelProvider(this).get(StudentViewModel.class);
         replaceFragment(new TestingFragment());
+        addControl();
+        addEvent();
         binding.navStudent.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
