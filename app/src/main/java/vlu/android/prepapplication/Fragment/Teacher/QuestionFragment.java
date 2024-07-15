@@ -1,9 +1,11 @@
 package vlu.android.prepapplication.Fragment.Teacher;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,15 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Collections;
@@ -119,7 +121,7 @@ public class QuestionFragment extends Fragment {
                             searchAdapter.updateQuestions(Collections.singletonList(question));
                             return;
                         }
-                        Toast.makeText(getContext(), "Cannot find question with id " + id, Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), "Cannot find question with id " + id, Toast.LENGTH_LONG).show();
                         searchAdapter.updateQuestions(Collections.emptyList());
                         result.removeObserver(this);
                     }
@@ -141,57 +143,47 @@ public class QuestionFragment extends Fragment {
 
         Button btnAddQuestion = view.findViewById(R.id.btnAddQuestion);
         btnAddQuestion.setOnClickListener(v -> {
-            View dialog = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_question_layout, (ViewGroup) view.getRootView(), false);
+            View dialog = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_add_question_layout, (ViewGroup) view.getRootView(), false);
             EditText edtQuestionContent = dialog.findViewById(R.id.edtQuestionContent);
             EditText edtAnswerA = dialog.findViewById(R.id.edtAnswerA);
             EditText edtAnswerB = dialog.findViewById(R.id.edtAnswerB);
             EditText edtAnswerC = dialog.findViewById(R.id.edtAnswerC);
             EditText edtAnswerD = dialog.findViewById(R.id.edtAnswerD);
-            Spinner spinnerCorrectQuestion = dialog.findViewById(R.id.spnCorrectAnswer);
-            spinnerCorrectQuestion.setAdapter(new ArrayAdapter<>(view.getContext(),
-                    androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                    new String[]{"A", "B", "C", "D"}));
-            new AlertDialog.
-                    Builder(view.getContext()).
-                    setView(dialog).setPositiveButton("Add", (dialogInterface, i) -> {
-                        String content = edtQuestionContent.getText().toString();
-                        String answerA = edtAnswerA.getText().toString();
-                        String answerB = edtAnswerB.getText().toString();
-                        String answerC = edtAnswerC.getText().toString();
-                        String answerD = edtAnswerD.getText().toString();
+            RadioGroup rdgCorrectAnswer = dialog.findViewById(R.id.rdgCorrectAnswer);
 
-                        if (content.isEmpty()) {
-                            Toast.makeText(getContext(), "Missing question content", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        if (answerA.isEmpty() || answerB.isEmpty() || answerC.isEmpty() || answerD.isEmpty()) {
-                            Toast.makeText(getContext(), "Missing answer(s)", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-
-                        String correctAnswer = (String) spinnerCorrectQuestion.getSelectedItem();
-                        String answer = answerA;
-
-                        switch (correctAnswer) {
-                            case "B":
-                                answer = answerB;
-                                break;
-                            case "C":
-                                answer = answerC;
-                                break;
-                            case "D":
-                                answer = answerD;
-                                break;
-                        }
-
-                        questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer));
-                        Toast.makeText(getContext(), "Successfully insert new question", Toast.LENGTH_LONG).show();
-                        dialogInterface.cancel();
-                    }).
+            AlertDialog alertDialog = new AlertDialog.
+                    Builder(requireContext()).
+                    setTitle("New question").
+                    setView(dialog).
+                    setPositiveButton("Save", null).
                     setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
-                    create().
                     show();
+
+            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(view1 -> {
+                String content = edtQuestionContent.getText().toString();
+                String answerA = edtAnswerA.getText().toString();
+                String answerB = edtAnswerB.getText().toString();
+                String answerC = edtAnswerC.getText().toString();
+                String answerD = edtAnswerD.getText().toString();
+
+                int correctAnswerId = rdgCorrectAnswer.getCheckedRadioButtonId();
+                String answer = answerA;
+
+                if (correctAnswerId == R.id.rdoAnswerB) {
+                    answer = answerB;
+                } else if (correctAnswerId == R.id.rdoAnswerC) {
+                    answer = answerC;
+                } else if (correctAnswerId == R.id.rdoAnswerD) {
+                    answer = answerD;
+                }
+
+                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer),
+                        () -> requireActivity().runOnUiThread(() -> {
+                            Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
+                            alertDialog.dismiss();
+                        }),
+                        s -> requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()));
+            });
         });
 
         return view;

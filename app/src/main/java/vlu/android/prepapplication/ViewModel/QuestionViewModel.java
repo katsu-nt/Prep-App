@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import vlu.android.prepapplication.Model.Question;
 import vlu.android.prepapplication.Repository.Repository;
@@ -32,8 +33,12 @@ public class QuestionViewModel extends AndroidViewModel {
         return questionLiveData;
     }
 
-    public void insert(Question question) {
-        repository.insert(question);
+    public void insert(Question question, Runnable onSuccess, Consumer<String> onFailure) {
+        repository.insert(question, onSuccess, onFailure);
+    }
+
+    public boolean isCorrectAnswer(Question question, String answer) {
+        return question.getCorrectAnswer().equals(answer);
     }
 
     public void delete(Question question) {

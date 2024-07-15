@@ -1,10 +1,15 @@
 package vlu.android.prepapplication.Repository;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.RoomOpenHelper;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
 
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.ClassroomWithStudents;
@@ -65,30 +70,77 @@ public class Repository {
     public LiveData<Question> getQuestionByID(int id) {
         return questionDAO.getQuestionByID(id);
     }
+
     public void delete(Question question) {
         PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.deleteQuestion(question));
-}
-    public LiveData<List<Classroom>>getAllClassroom(){
+    }
+
+    public LiveData<List<Classroom>> getAllClassroom() {
         return classroomDAO.getAllClassroom();
     }
-    public LiveData<Classroom> getClassroomByID(int id){
-        return classroomDAO.getQuestionByID (id);
+
+    public LiveData<Classroom> getClassroomByID(int id) {
+        return classroomDAO.getQuestionByID(id);
     }
-    public void insert(Teacher teacher){
-        PrepDatabase.databaseWriteExecutor.execute(()->{
+
+    public void insert(Teacher teacher) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> {
             teacherDAO.insert(teacher);
         });
     }
-    public LiveData<List<Subject>> getAllSubject(){
+
+    public LiveData<List<Subject>> getAllSubject() {
         return subjectDAO.getAllSubject();
     }
+
     public LiveData<Subject> getSubjectByID(int id) {
         return subjectDAO.getSubjectByID(id);
     }
-    public LiveData<List<Subject>> getSubjectByName(String name) {return subjectDAO.getSubjectByName(name);}
-    public void insert(Question question){
-        PrepDatabase.databaseWriteExecutor.execute(()-> questionDAO.insert(question));
+
+    public LiveData<List<Subject>> getSubjectByName(String name) {
+        return subjectDAO.getSubjectByName(name);
     }
+
+    public void insert(Question question, Runnable onSuccess, Consumer<String> onFailure) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> {
+            String content = question.getContent().trim();
+            String answerA = question.getAnswerA().trim();
+            String answerB = question.getAnswerB().trim();
+            String answerC = question.getAnswerC().trim();
+            String answerD = question.getAnswerD().trim();
+            String correctAnswer = question.getCorrectAnswer().trim();
+
+            if (content.isEmpty() ||
+                    answerA.isEmpty() ||
+                    answerB.isEmpty() ||
+                    answerC.isEmpty() ||
+                    answerD.isEmpty() ||
+                    correctAnswer.isEmpty()) {
+                if (onFailure != null) {
+                    onFailure.accept("there is a missing field in the question");
+                }
+                return;
+            }
+
+            HashSet<String> answerSet = new HashSet<>(Arrays.asList(answerA, answerB, answerC, answerD));
+
+            if (answerSet.size() < 4) {
+                onFailure.accept("there are repeated answer");
+                return;
+            }
+
+            if (!answerSet.contains(correctAnswer)) {
+                onFailure.accept("correct answer is not present in the answer set");
+                return;
+            }
+
+            questionDAO.insert(question);
+            if (onSuccess != null) {
+                onSuccess.run();
+            }
+        });
+    }
+
     public void insert(Classroom classroom) {
         PrepDatabase.databaseWriteExecutor.execute(() -> {
             classroomDAO.insert(classroom);
@@ -96,7 +148,7 @@ public class Repository {
     }
 
     public void insertSubject(Subject subject) {
-        PrepDatabase.databaseWriteExecutor.execute(()-> subjectDAO.insert(subject));
+        PrepDatabase.databaseWriteExecutor.execute(() -> subjectDAO.insert(subject));
     }
 
     public void delete(Subject subject){
