@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.Question;
@@ -32,9 +33,9 @@ public class ClassroomViewModel extends AndroidViewModel {
         classroomLiveData= repository.getClassroomByID(id);
         return classroomLiveData;
     }
-    public  void insert(Classroom classroom)
+    public  void insert(Classroom classroom, Runnable onSucces, Consumer<String> onFailure)
     {
-        repository.insert(classroom);
+        repository.insert(classroom,onSucces,onFailure);
     }
 
     public void delete(Classroom classroom) {

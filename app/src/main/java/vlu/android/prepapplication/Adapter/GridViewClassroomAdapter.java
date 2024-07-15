@@ -21,6 +21,10 @@ import java.util.List;
 
 
 import vlu.android.prepapplication.Fragment.Teacher.DetailedClassroomFragment;
+
+import vlu.android.prepapplication.Fragment.Teacher.DetailedSubjectFragment;
+
+
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.ClassroomViewModel;
