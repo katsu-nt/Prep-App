@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Testing"
+        android:id="@+id/testing"
+        android:icon="@drawable/testing_icon"/>
+    <item android:title="History"
+        android:id="@+id/history"
+        android:icon="@drawable/baseline_assignment_24" />
+    <item android:title="Notification"
+        android:id="@+id/studentNotification"
+        android:icon="@drawable/baseline_notifications_none_24" />
+    <item android:title="Setting"
+        android:id="@+id/studentSettings"
+        android:icon="@drawable/baseline_more_horiz_24" />
+</menu>

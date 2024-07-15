@@ -17,4 +17,6 @@ public interface StudentDAO {
     public void udpate(Student student);
     @Query("Select * from student where userName =:userName")
     public LiveData<Student> getStudentByUserName(String userName);
+    @Query("select * from student where studentId=:id")
+    public LiveData<Student> getStudentById(int id);
 }
