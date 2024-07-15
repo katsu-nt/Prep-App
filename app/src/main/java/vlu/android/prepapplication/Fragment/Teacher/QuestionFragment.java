@@ -88,7 +88,7 @@ public class QuestionFragment extends Fragment {
         RecyclerView rcvQuestion = view.findViewById(R.id.rcvQuestion);
         questionViewModel = new ViewModelProvider((requireActivity())).get(QuestionViewModel.class);
 //        questionViewModel.insert(new Question("1 + 1 = ?", "3", "1", "0", "2", "2"));
-//        questionViewModel.insert(new Question("Java được phát minh vào năm?", "1994", "1995", "1996", "2024", "1995"));
+        //questionViewModel.insert(new Question("Java được phát minh vào năm?", "1994", "1995", "1996", "2024", "1995"));
         RecyclerViewQuestionAdapter adapter = new RecyclerViewQuestionAdapter(questionViewModel);
         rcvQuestion.setAdapter(adapter);
         questionViewModel.getAllQuestionLiveData().observe(getViewLifecycleOwner(), adapter::updateQuestions);

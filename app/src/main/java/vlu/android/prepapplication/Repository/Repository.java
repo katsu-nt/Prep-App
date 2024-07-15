@@ -100,7 +100,7 @@ public class Repository {
     }
 
     public void delete(Classroom classroom) {
-        PrepDatabase.databaseWriteExecutor.execute(()-> classroom.deleteClassroom(classroom));
+        PrepDatabase.databaseWriteExecutor.execute(()-> classroomDAO.deleteClassroom(classroom));
     }
     public void insertStudent(Student  student){
         PrepDatabase.databaseWriteExecutor.execute(()-> studentDAO.insert(student));

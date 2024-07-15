@@ -70,6 +70,7 @@ public class ClassroomFragment extends Fragment {
 
         GridViewClassroomAdapter adapter = new GridViewClassroomAdapter(getContext(), classroomViewModel);
         grVClassroom.setAdapter(adapter);
+       // classroomViewModel.insert(new Classroom("Lop 01","Lop hoc 01"));
         classroomViewModel.getAllClassromLiveData().observe(getViewLifecycleOwner(), adapter::updateClassroom);
 
         GridViewClassroomAdapter searchAdapter = new GridViewClassroomAdapter(getContext(), classroomViewModel);

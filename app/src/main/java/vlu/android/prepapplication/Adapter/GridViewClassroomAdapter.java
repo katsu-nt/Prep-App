@@ -3,6 +3,7 @@ package vlu.android.prepapplication.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.style.TtsSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import vlu.android.prepapplication.Fragment.Teacher.ClassroomDetailFragment;
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.ClassroomViewModel;
@@ -46,6 +53,7 @@ public class GridViewClassroomAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ClassroomViewHolder holder;
+        Classroom classroom1 = classroom.get(position);
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.grid_view_classroom_item_layout, parent, false);
@@ -54,34 +62,37 @@ public class GridViewClassroomAdapter extends BaseAdapter {
         } else {
             holder = (ClassroomViewHolder) convertView.getTag();
         }
+        String classroomID = String.valueOf(classroom1.getClassroomId());
+        String classroomDE =classroom1.getDescription() ;
 
-        Classroom currentClassroom = classroom.get(position);
-        holder.getTvClassroomID().setText(String.valueOf(currentClassroom.getId()));
-        holder.getTvClassroomDe().setText(currentClassroom.getDescription());
+        holder.getTvClassroomID().setText(classroomID);
+        holder.getTvClassroomDe().setText(classroomDE);
 
         // Click listener for item view
         convertView.setOnClickListener(view -> {
-            Classroom clickedClassroom = classroom.get(position);
-            Bundle bundle = new Bundle();
-            bundle.putInt("classroom_id", clickedClassroom.getId());
-
+            Context context = parent.getContext();
+            if (context instanceof AppCompatActivity) {
+                AppCompatActivity activity = (AppCompatActivity) context;
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                Fragment fragment = new ClassroomDetailFragment();
+                fragmentTransaction.replace(R.id.flTeacher, fragment);
+                fragmentTransaction.commit();
+            }
         });
 
 
         // Long click listener for item view
         convertView.setOnLongClickListener(view -> {
-            Classroom longClickedClassroom = classroom.get(position);
-            new AlertDialog.Builder(view.getContext())
-                    .setTitle("Delete Classroom")
-                    .setMessage("Are you sure you want to delete this classroom?")
-                    .setPositiveButton("Confirm", (dialogInterface, i) -> {
-                        // Delete classroom from ViewModel
-                        classroomViewModel.delete(longClickedClassroom);
-                        Toast.makeText(view.getContext(), "Classroom deleted: " + longClickedClassroom.getId(), Toast.LENGTH_SHORT).show();
-                    })
-                    .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel())
-                    .show();
-            return true; // Consume long click
+            new AlertDialog.Builder(view.getContext()).
+                    setTitle(String.format(
+                            "Are you sure you want to delete classroom with id: %s",
+                            classroomID)
+                    ).
+                    setPositiveButton("Confirm", (dialogInterface, i) -> classroomViewModel.delete(classroom1)).
+                    setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
+                    show();
+            return true;
         });
 
         return convertView;
