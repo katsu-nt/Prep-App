@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,7 +33,6 @@ import vlu.android.prepapplication.ViewModel.SubjectViewModel;
  */
 public class FindFragment extends Fragment {
 
-
     private SubjectViewModel subjectViewModel;
     private RecyclerViewSubjectAdapter adapter;
     private RecyclerView recySubject;
@@ -40,6 +40,10 @@ public class FindFragment extends Fragment {
 
     public FindFragment() {
         // Required empty public constructor
+    }
+
+    public static FindFragment newInstance() {
+        return new FindFragment();
     }
 
     @Override
@@ -51,7 +55,8 @@ public class FindFragment extends Fragment {
 
         subjectViewModel = new ViewModelProvider(requireActivity()).get(SubjectViewModel.class);
 
-        adapter = new RecyclerViewSubjectAdapter();
+        adapter = new RecyclerViewSubjectAdapter(subjectViewModel); // Fix constructor
+        recySubject.setLayoutManager(new LinearLayoutManager(getContext()));
         recySubject.setAdapter(adapter);
 
         subjectViewModel.getAllSubjectLiveData().observe(getViewLifecycleOwner(), adapter::updateSubjects);

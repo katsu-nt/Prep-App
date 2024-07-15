@@ -99,6 +99,10 @@ public class Repository {
         PrepDatabase.databaseWriteExecutor.execute(()-> subjectDAO.insert(subject));
     }
 
+    public void delete(Subject subject){
+        PrepDatabase.databaseWriteExecutor.execute(()-> subjectDAO.deleteSubjet(subject));
+    }
+
     public void delete(Classroom classroom) {
         PrepDatabase.databaseWriteExecutor.execute(()-> classroomDAO.deleteClassroom(classroom));
     }
