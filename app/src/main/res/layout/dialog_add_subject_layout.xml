@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13pt"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:text="Create new Subject"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/tvCreateName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:text="Name"
+        android:layout_marginTop="8dp"/>
+
+    <EditText
+        android:id="@+id/edtCreateName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCreateName"
+        android:hint="Enter item name"
+        android:inputType="text"
+        android:textSize="9pt"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tvCreateDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edtCreateName"
+        android:labelFor="@+id/edtCreateDescription"
+        android:textStyle="bold"
+        android:textSize="10pt"
+        android:text="Description"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/edtCreateDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvCreateDescription"
+        android:hint="Enter item description"
+        android:textSize="9pt"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="8dp"/>
+
+</RelativeLayout>
