@@ -32,6 +32,10 @@ public class ClassroomViewModel extends AndroidViewModel {
         classroomLiveData= repository.getClassroomByID(id);
         return classroomLiveData;
     }
+    public  void insert(Classroom classroom)
+    {
+        repository.insert(classroom);
+    }
 
     public void delete(Classroom classroom) {
         repository.delete(classroom);
