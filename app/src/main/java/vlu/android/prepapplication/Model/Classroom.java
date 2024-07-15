@@ -1,26 +1,30 @@
 package vlu.android.prepapplication.Model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "classroom")
+@Entity(tableName = "classroom", foreignKeys = {@ForeignKey(entity = Teacher.class,parentColumns = "teacherId",childColumns = "teacherId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE)})
 public class Classroom {
     @PrimaryKey(autoGenerate = true)
     private int classroomId;
     private String name;
     private String description;
-
-    public Classroom(String name, String description) {
+    private int teacherId;
+    public Classroom(String name, String description, int teacherId) {
         this.name = name;
         this.description = description;
+        this.teacherId = teacherId;
     }
+
 
     public int getClassroomId() {
         return classroomId;
     }
 
-    public void setClassroomId(int id) {
-        this.classroomId = id;
+    public void setClassroomId(int classroomId) {
+        this.classroomId = classroomId;
     }
 
     public String getName() {
@@ -39,10 +43,11 @@ public class Classroom {
         this.description = description;
     }
 
-    public int getId() {
-        return 0;
+    public int getTeacherId() {
+        return teacherId;
     }
 
-    public void deleteClassroom(Classroom classroom) {
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
     }
 }

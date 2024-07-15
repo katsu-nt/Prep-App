@@ -1,8 +1,10 @@
 package vlu.android.prepapplication.Model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
-@Entity(primaryKeys = {"teacherId","subjectId"})
+@Entity(primaryKeys = {"teacherId","subjectId"},foreignKeys = {@ForeignKey(entity = Teacher.class,parentColumns = "teacherId",childColumns = "teacherId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE),
+        @ForeignKey(entity = Subject.class,parentColumns = "subjectId",childColumns = "subjectId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE)})
 public class TeacherSubjectCrossRef {
     private int teacherId;
     private int subjectId;

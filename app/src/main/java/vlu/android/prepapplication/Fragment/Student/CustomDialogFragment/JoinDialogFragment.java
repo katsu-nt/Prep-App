@@ -12,13 +12,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import vlu.android.prepapplication.Model.Student;
 import vlu.android.prepapplication.R;
+import vlu.android.prepapplication.ViewModel.StudentViewModel;
+import vlu.android.prepapplication.ViewModel.TeacherViewModel;
 
 public class JoinDialogFragment extends DialogFragment {
     TextView txtHeading,txtContent;
     Button btnCancel, btnOk;
     private String heading, context;
+    private StudentViewModel studentViewModel;
 
     public JoinDialogFragment(String heading, String context) {
         this.heading = heading;
@@ -40,6 +45,9 @@ public class JoinDialogFragment extends DialogFragment {
         btnOk = view.findViewById(R.id.btnOk);
         txtHeading.setText(heading);
         txtContent.setText(context);
+        studentViewModel = new ViewModelProvider(requireActivity()).get(StudentViewModel.class);
+        Student st = new Student("113113","113113","113113");
+
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +57,8 @@ public class JoinDialogFragment extends DialogFragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Student st = new Student("113113","113113","113113");
+                studentViewModel.insertStudent(st);
                 dismiss();
             }
         });

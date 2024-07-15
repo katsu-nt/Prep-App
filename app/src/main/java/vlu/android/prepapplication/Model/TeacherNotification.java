@@ -1,19 +1,31 @@
 package vlu.android.prepapplication.Model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "teacherNotification")
+@Entity(tableName = "teacherNotification",foreignKeys = {@ForeignKey(entity = Teacher.class,parentColumns = "teacherId",childColumns = "teacherId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE)})
 public class TeacherNotification {
     @PrimaryKey(autoGenerate = true)
     private int teacherNotificationId;
     private String message;
     private int action;//-1 Reject     0 Accept     1 Applied
+    private int teacherId;
 
-    public TeacherNotification(String message, int action) {
+    public TeacherNotification(String message, int action, int teacherId) {
         this.message = message;
         this.action = action;
+        this.teacherId = teacherId;
     }
+
+    public int getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(int teacherId) {
+        this.teacherId = teacherId;
+    }
+
 
     public int getTeacherNotificationId() {
         return teacherNotificationId;

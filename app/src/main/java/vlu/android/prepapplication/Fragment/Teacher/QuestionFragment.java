@@ -177,7 +177,7 @@ public class QuestionFragment extends Fragment {
                     answer = answerD;
                 }
 
-                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer),
+                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer,1),
                         () -> requireActivity().runOnUiThread(() -> {
                             Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
                             alertDialog.dismiss();

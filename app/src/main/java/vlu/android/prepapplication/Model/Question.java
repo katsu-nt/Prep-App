@@ -1,21 +1,15 @@
 package vlu.android.prepapplication.Model;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "question")
+@Entity(tableName = "question",foreignKeys = {@ForeignKey(entity = Subject.class,parentColumns = "subjectId",childColumns = "subjectId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE)})
+
 public class Question {
     @PrimaryKey (autoGenerate = true)
     private int questionId;
 
-    public Question(String content, String answerA, String answerB, String answerC, String answerD, String correctAnswer) {
-        this.content = content;
-        this.answerA = answerA;
-        this.answerB = answerB;
-        this.answerC = answerC;
-        this.answerD = answerD;
-        this.correctAnswer = correctAnswer;
-    }
 
     public int getQuestionId() {
         return questionId;
@@ -79,5 +73,23 @@ public class Question {
     private String answerC;
     private String answerD;
     private String correctAnswer;
+    private int subjectId;
 
+    public Question(String content, String answerA, String answerB, String answerC, String answerD, String correctAnswer, int subjectId) {
+        this.content = content;
+        this.answerA = answerA;
+        this.answerB = answerB;
+        this.answerC = answerC;
+        this.answerD = answerD;
+        this.correctAnswer = correctAnswer;
+        this.subjectId = subjectId;
+    }
+
+    public int getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(int subjectId) {
+        this.subjectId = subjectId;
+    }
 }

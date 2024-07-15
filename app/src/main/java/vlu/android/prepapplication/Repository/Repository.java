@@ -1,10 +1,8 @@
 package vlu.android.prepapplication.Repository;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.RoomOpenHelper;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,15 +10,17 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import vlu.android.prepapplication.Model.Classroom;
-import vlu.android.prepapplication.Model.ClassroomWithStudents;
 import vlu.android.prepapplication.Model.DAO.ClassroomDAO;
+import vlu.android.prepapplication.Model.DAO.ClassroomStudentCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.ClassroomSubjectCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.ExamDAO;
 import vlu.android.prepapplication.Model.DAO.QuestionDAO;
 import vlu.android.prepapplication.Model.DAO.StudentDAO;
+import vlu.android.prepapplication.Model.DAO.StudentExamQuestionCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.StudentNotificationDAO;
 import vlu.android.prepapplication.Model.DAO.SubjectDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherDAO;
+import vlu.android.prepapplication.Model.DAO.TeacherNotiAndStudentNotiDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherNotificationDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherSubjectCrossRefDAO;
 import vlu.android.prepapplication.Model.PrepDatabase;
@@ -40,6 +40,9 @@ public class Repository {
     private TeacherSubjectCrossRefDAO teacherSubjectCrossRefDAO;
     private TeacherNotificationDAO teacherNotificationDAO;
     private ClassroomSubjectCrossRefDAO classroomSubjectCrossRefDAO;
+    private ClassroomStudentCrossRefDAO classroomStudentCrossRefDAO;
+    private StudentExamQuestionCrossRefDAO studentExamQuestionCrossRefDAO;
+    private TeacherNotiAndStudentNotiDAO teacherNotiAndStudentNotiDAO;
 
     public Repository(Application application) {
         PrepDatabase db = PrepDatabase.getDatabase(application);
@@ -53,6 +56,9 @@ public class Repository {
         teacherSubjectCrossRefDAO = db.teacherSubjectCrossRefDAO();
         teacherNotificationDAO = db.teacherNotificationDAO();
         classroomSubjectCrossRefDAO = db.classroomSubjectCrossRefDAO();
+        classroomStudentCrossRefDAO = db.classroomStudentCrossRefDAO();
+        studentExamQuestionCrossRefDAO = db.studentExamQuestionCrossRefDAO();
+        teacherNotiAndStudentNotiDAO = db.teacherNotiAndStudentNotiDAO();
     }
 
     public LiveData<Teacher> getTeacherByUserName(String username) {
@@ -175,8 +181,6 @@ public class Repository {
     public LiveData<Student> getStudentById(int id){
         return studentDAO.getStudentById(id);
     }
-    public LiveData<List<ClassroomWithStudents>> getClassroomWithStudents(){
-        return classroomDAO.getClassroomWithStudents();
-    }
+
 
 }

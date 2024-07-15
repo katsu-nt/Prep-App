@@ -133,7 +133,7 @@
                 alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(view1 -> {
                     String nameClassroom = edtNameClassroom.getText().toString();
                     String description = edtDescription.getText().toString();
-                    classroomViewModel.insert(new Classroom(nameClassroom, description),
+                    classroomViewModel.insert(new Classroom(nameClassroom, description,1),
                             () -> requireActivity().runOnUiThread(() -> {
                                 Toast.makeText(requireContext(), "Successfully added new classroom", Toast.LENGTH_LONG).show();
                                 alertDialog.dismiss();

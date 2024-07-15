@@ -12,17 +12,23 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import vlu.android.prepapplication.Model.DAO.ClassroomDAO;
+import vlu.android.prepapplication.Model.DAO.ClassroomStudentCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.ClassroomSubjectCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.ExamDAO;
 import vlu.android.prepapplication.Model.DAO.QuestionDAO;
 import vlu.android.prepapplication.Model.DAO.StudentDAO;
+import vlu.android.prepapplication.Model.DAO.StudentExamQuestionCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.StudentNotificationDAO;
 import vlu.android.prepapplication.Model.DAO.SubjectDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherDAO;
+import vlu.android.prepapplication.Model.DAO.TeacherNotiAndStudentNotiDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherNotificationDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherSubjectCrossRefDAO;
 
-@Database(entities = {Teacher.class,Student.class,Classroom.class, Subject.class, Question.class,StudentNotification.class,TeacherNotification.class, Exam.class, ClassroomSubjectCrossRef.class,TeacherSubjectCrossRef.class},version = 1,exportSchema = false)
+@Database(entities = {Teacher.class,Student.class,Classroom.class, Subject.class,
+        Question.class,StudentNotification.class,TeacherNotification.class, Exam.class,
+        ClassroomSubjectCrossRef.class,TeacherSubjectCrossRef.class,ClassroomStudentCrossRef.class,
+        StudentExamQuestionCrossRef.class,TeacherNotiAndStudentNoti.class},version = 1,exportSchema = false)
 public abstract class PrepDatabase extends RoomDatabase {
     public abstract TeacherDAO teacherDAO();
     public abstract StudentDAO studentDAO();
@@ -34,6 +40,10 @@ public abstract class PrepDatabase extends RoomDatabase {
     public abstract TeacherSubjectCrossRefDAO teacherSubjectCrossRefDAO();
     public abstract TeacherNotificationDAO teacherNotificationDAO();
     public abstract ClassroomSubjectCrossRefDAO classroomSubjectCrossRefDAO();
+    public abstract ClassroomStudentCrossRefDAO classroomStudentCrossRefDAO();
+    public abstract StudentExamQuestionCrossRefDAO studentExamQuestionCrossRefDAO();
+    public abstract TeacherNotiAndStudentNotiDAO teacherNotiAndStudentNotiDAO();
+
 
     private static volatile PrepDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
@@ -62,9 +72,9 @@ public abstract class PrepDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 // Populate the database in the background.
                 // If you want to start with more words, just add them.
-                TeacherDAO dao = INSTANCE.teacherDAO();
-                Teacher teacher = new Teacher("teacher","benbill","113113");
-                dao.insert(teacher);
+//                TeacherDAO dao = INSTANCE.teacherDAO();
+//                Teacher teacher = new Teacher("teacher","benbill","113113");
+//                dao.insert(teacher);
             });
         }
     };
