@@ -42,8 +42,6 @@ public class StudentActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Intent intent = getIntent();
-        int idStudent = intent.getIntExtra("studentId",-1);
         studentViewModel = new ViewModelProvider(this).get(StudentViewModel.class);
         replaceFragment(new TestingFragment());
         addControl();

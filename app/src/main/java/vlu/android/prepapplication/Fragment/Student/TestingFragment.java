@@ -1,5 +1,6 @@
 package vlu.android.prepapplication.Fragment.Student;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -81,12 +82,18 @@ public class TestingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Intent intent = getActivity().getIntent();
+        int idStudent = intent.getIntExtra("studentId",-1);
         addControl(view);
+        studentViewModel = new ViewModelProvider((requireActivity())).get(StudentViewModel.class);
+        studentViewModel.getStudentById(idStudent).observe(getViewLifecycleOwner(),item->{
+            student = item;
+        });
         edtSearhToJoin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_DONE){
+                    int idQuery = Integer.parseInt(edtSearhToJoin.getText().toString().trim());
                     JoinDialogFragment joinDialogFragment = new JoinDialogFragment("Join with 110","Make sure you want join class with ID 110?");
                     joinDialogFragment.show(getActivity().getSupportFragmentManager(), null);
                     joinDialogFragment.setCancelable(false);
@@ -99,11 +106,6 @@ public class TestingFragment extends Fragment {
 
     void addControl(View view){
         edtSearhToJoin = view.findViewById(R.id.edtSearchToJoin);
-        studentViewModel = new ViewModelProvider((requireActivity())).get(StudentViewModel.class);
-        studentViewModel.getStudentById(1).observe(getViewLifecycleOwner(),item->{
-            student = item;
-        });
-
     }
 
 }

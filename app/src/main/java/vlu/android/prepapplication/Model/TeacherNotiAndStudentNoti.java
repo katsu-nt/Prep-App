@@ -3,29 +3,29 @@ package vlu.android.prepapplication.Model;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
-@Entity(primaryKeys = {"studentId","teacherId"},foreignKeys = {@ForeignKey(entity = Student.class,parentColumns = "studentId",childColumns = "studentId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE),
-        @ForeignKey(entity = Teacher.class,parentColumns = "teacherId",childColumns = "teacherId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE)})
+@Entity(primaryKeys = {"teacherNotificationId","studentNotificationId"},foreignKeys = {@ForeignKey(entity = TeacherNotification.class,parentColumns = "teacherNotificationId",childColumns = "teacherNotificationId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE),
+        @ForeignKey(entity = StudentNotification.class,parentColumns = "studentNotificationId",childColumns = "studentNotificationId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE)})
 public class TeacherNotiAndStudentNoti {
-    private int studentId,teacherId;
+    private int teacherNotificationId, studentNotificationId;
 
-    public TeacherNotiAndStudentNoti(int studentId, int teacherId) {
-        this.studentId = studentId;
-        this.teacherId = teacherId;
+    public TeacherNotiAndStudentNoti(int teacherNotificationId, int studentNotificationId) {
+        this.teacherNotificationId = teacherNotificationId;
+        this.studentNotificationId = studentNotificationId;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public int getTeacherNotificationId() {
+        return teacherNotificationId;
     }
 
-    public void setStudentId(int studentId) {
-        this.studentId = studentId;
+    public void setTeacherNotificationId(int teacherNotificationId) {
+        this.teacherNotificationId = teacherNotificationId;
     }
 
-    public int getTeacherId() {
-        return teacherId;
+    public int getStudentNotificationId() {
+        return studentNotificationId;
     }
 
-    public void setTeacherId(int teacherId) {
-        this.teacherId = teacherId;
+    public void setStudentNotificationId(int studentNotificationId) {
+        this.studentNotificationId = studentNotificationId;
     }
 }
