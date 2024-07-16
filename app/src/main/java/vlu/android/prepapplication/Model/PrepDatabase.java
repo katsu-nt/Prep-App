@@ -159,11 +159,13 @@ public abstract class PrepDatabase extends RoomDatabase {
                 clst = new ClassroomStudentCrossRef(1,3);
                 daoclst.insert(clst);
                 StudentExamQuestionCrossRefDAO daostex = INSTANCE.studentExamQuestionCrossRefDAO();
+
                 StudentExamQuestionCrossRef stex = new StudentExamQuestionCrossRef(1,1,1,"A");
                 daostex.insert(stex);
                 stex = new StudentExamQuestionCrossRef(2,1,1,"C");
                 daostex.insert(stex);
                 stex = new StudentExamQuestionCrossRef(3,1,1,"D");
+
                 daostex.insert(stex);
             });
 
