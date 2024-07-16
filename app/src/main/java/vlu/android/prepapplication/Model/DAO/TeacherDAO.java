@@ -20,4 +20,6 @@ public interface TeacherDAO {
     public void update(Teacher teacher);
     @Query("Select * from teacher where userName =:userName")
     public LiveData<Teacher> getTeacherByUserName(String userName);
+
+
 }

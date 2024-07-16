@@ -151,18 +151,38 @@ public class Repository {
         PrepDatabase.databaseWriteExecutor.execute(() -> {
             String nameClassroom = classroom.getName();
             String description = classroom.getDescription();
-            if (nameClassroom.isEmpty() || description.isEmpty())
-            {
-                if (onFailure != null){
+            int teacherId = classroom.getTeacherId();
+
+            if (nameClassroom.isEmpty() || description.isEmpty()) {
+                if (onFailure != null) {
                     onFailure.accept("There is a missing field in the classroom");
                 }
+                return;
             }
-            classroomDAO.insert(classroom);
-            if (onSuccess !=null){
-                onSuccess.run();
+
+            // Kiểm tra khóa ngoại
+            Teacher teacher = classroomDAO.getTeacherById(teacherId);
+            if (teacher == null) {
+                if (onFailure != null) {
+                    onFailure.accept("Invalid teacherId: " + teacherId);
+                }
+                return;
+            }
+
+            try {
+                classroomDAO.insert(classroom);
+                if (onSuccess != null) {
+                    onSuccess.run();
+                }
+            } catch (Exception e) {
+                if (onFailure != null) {
+                    onFailure.accept("Failed to insert classroom: " + e.getMessage());
+                }
+                e.printStackTrace();
             }
         });
     }
+
 
     public void insertSubject(Subject subject) {
         PrepDatabase.databaseWriteExecutor.execute(() -> subjectDAO.insert(subject));
