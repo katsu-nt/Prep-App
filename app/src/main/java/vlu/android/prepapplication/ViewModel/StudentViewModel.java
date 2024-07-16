@@ -20,11 +20,11 @@ public class StudentViewModel extends AndroidViewModel {
         student = repository.getStudentById(id);
         return student;
     }
+    public LiveData<Student> getStudentActive(){
+        return student;
+    }
     public void insertStudent(Student student){
         repository.insertStudent(student);
     }
-//    public void insertClassroom(Classroom classroom){
-//        repository.insert(classroom);
-//    }
 
 }

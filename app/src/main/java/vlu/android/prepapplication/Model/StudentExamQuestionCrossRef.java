@@ -9,10 +9,22 @@ import androidx.room.ForeignKey;
 public class StudentExamQuestionCrossRef {
     private int questionId,examId,studentId;
 
-    public StudentExamQuestionCrossRef(int questionId, int examId, int studentId) {
+
+    private String studentAnswer;
+
+    public StudentExamQuestionCrossRef(int questionId, int examId, int studentId, String studentAnswer) {
         this.questionId = questionId;
         this.examId = examId;
         this.studentId = studentId;
+        this.studentAnswer = studentAnswer;
+    }
+
+    public String getStudentAnswer() {
+        return studentAnswer;
+    }
+
+    public void setStudentAnswer(String studentAnswer) {
+        this.studentAnswer = studentAnswer;
     }
 
     public int getQuestionId() {

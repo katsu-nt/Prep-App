@@ -9,7 +9,7 @@ public class TeacherNotification {
     @PrimaryKey(autoGenerate = true)
     private int teacherNotificationId;
     private String message;
-    private int action;//-1 Reject     0 Accept     1 Applied
+    private int action;//-1 inprogress 1 resolve
     private int teacherId;
 
     public TeacherNotification(String message, int action, int teacherId) {
