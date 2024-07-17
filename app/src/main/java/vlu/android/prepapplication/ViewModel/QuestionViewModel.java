@@ -16,6 +16,7 @@ public class QuestionViewModel extends AndroidViewModel {
 
     private Repository repository;
     private LiveData<List<Question>> questionsLiveData;
+    private LiveData<List<Question>> subjectQuestionsLiveData;
     private LiveData<Question> questionLiveData;
 
     public QuestionViewModel(@NonNull Application application) {
@@ -27,6 +28,12 @@ public class QuestionViewModel extends AndroidViewModel {
         questionsLiveData = repository.getAllQuestion();
         return questionsLiveData;
     }
+
+    public LiveData<List<Question>> getQuestionBySubjectID(int subjectId) {
+        subjectQuestionsLiveData = repository.getQuestionsBySubjectID(subjectId);
+        return subjectQuestionsLiveData;
+    }
+
 
     public LiveData<Question> getQuestionLiveData(int id) {
         questionLiveData = repository.getQuestionByID(id);
