@@ -1,6 +1,7 @@
 package vlu.android.prepapplication.Fragment.Student.CustomDialogFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import vlu.android.prepapplication.Model.Classroom;
+import vlu.android.prepapplication.Model.ClassroomStudentCrossRef;
 import vlu.android.prepapplication.Model.Student;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.StudentViewModel;
@@ -24,10 +27,13 @@ public class JoinDialogFragment extends DialogFragment {
     Button btnCancel, btnOk;
     private String heading, context;
     private StudentViewModel studentViewModel;
+    private Classroom classroom;
+    private Student student;
 
-    public JoinDialogFragment(String heading, String context) {
+    public JoinDialogFragment(String heading, String context,Classroom classroom) {
         this.heading = heading;
         this.context= context;
+        this.classroom = classroom;
     }
 
     @Nullable
@@ -46,8 +52,10 @@ public class JoinDialogFragment extends DialogFragment {
         txtHeading.setText(heading);
         txtContent.setText(context);
         studentViewModel = new ViewModelProvider(requireActivity()).get(StudentViewModel.class);
-        Student st = new Student("113113","113113","113113");
-
+        Intent intent = getActivity().getIntent();
+        studentViewModel.getStudentById(intent.getIntExtra("studentId",-1)).observe(getViewLifecycleOwner(),student1 -> {
+            student = student1;
+        });
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,8 +65,13 @@ public class JoinDialogFragment extends DialogFragment {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Student st = new Student("113113","113113","113113");
-                studentViewModel.insertStudent(st);
+                studentViewModel.checkJoined(student.getStudentId(),classroom.getClassroomId()).observe(getViewLifecycleOwner(),flag->{
+                    if(flag>=1){
+                        Toast.makeText(getActivity(), "Was in classroom ID "+ classroom.getClassroomId(), Toast.LENGTH_SHORT).show();
+                    }else{
+                        studentViewModel.insertStudentToClassroom(new ClassroomStudentCrossRef(classroom.getClassroomId(),student.getStudentId()));
+                    }
+                });
                 dismiss();
             }
         });

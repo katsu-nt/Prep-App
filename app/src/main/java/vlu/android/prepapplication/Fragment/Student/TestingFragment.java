@@ -14,12 +14,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.List;
+
+import vlu.android.prepapplication.Adapter.SpinnerTestingClassroomAdapter;
+import vlu.android.prepapplication.Adapter.SpinnerTestingSubjectAdapter;
 import vlu.android.prepapplication.Fragment.Student.CustomDialogFragment.JoinDialogFragment;
+import vlu.android.prepapplication.Model.Classroom;
+import vlu.android.prepapplication.Model.ClassroomStudentCrossRef;
 import vlu.android.prepapplication.Model.Student;
+import vlu.android.prepapplication.Model.Subject;
 import vlu.android.prepapplication.R;
+import vlu.android.prepapplication.SignInActivity;
 import vlu.android.prepapplication.ViewModel.StudentViewModel;
 
 /**
@@ -38,9 +49,11 @@ public class TestingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     EditText edtSearhToJoin;
+    Spinner spinClassroom, spinSubject;
     private Student student;
     private StudentViewModel studentViewModel;
-
+    private List<Classroom> listClassroom;
+    private List<Subject> listSubjects;
     public TestingFragment() {
         // Required empty public constructor
     }
@@ -78,7 +91,6 @@ public class TestingFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_testing, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -86,26 +98,75 @@ public class TestingFragment extends Fragment {
         int idStudent = intent.getIntExtra("studentId",-1);
         addControl(view);
         studentViewModel = new ViewModelProvider((requireActivity())).get(StudentViewModel.class);
-        studentViewModel.getStudentById(idStudent).observe(getViewLifecycleOwner(),item->{
-            student = item;
-        });
-        edtSearhToJoin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_DONE){
-                    int idQuery = Integer.parseInt(edtSearhToJoin.getText().toString().trim());
-                    JoinDialogFragment joinDialogFragment = new JoinDialogFragment("Join with 110","Make sure you want join class with ID 110?");
-                    joinDialogFragment.show(getActivity().getSupportFragmentManager(), null);
-                    joinDialogFragment.setCancelable(false);
-                    return true;
-                }
-                return false;
-            }
-        });
+        loadSpinner(idStudent);
+        addEvent(idStudent);
+
+
     }
 
     void addControl(View view){
         edtSearhToJoin = view.findViewById(R.id.edtSearchToJoin);
+        spinClassroom = view.findViewById(R.id.spinTestingClassroom);
+        spinSubject = view.findViewById(R.id.spinTestingSubject);
+    }
+    void addEvent(int idStudent){
+        edtSearhToJoin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    if(!edtSearhToJoin.getText().toString().trim().isEmpty()){
+                        int idQuery = Integer.parseInt(edtSearhToJoin.getText().toString().trim());
+                        studentViewModel.getClassroomById(idQuery).observe(getViewLifecycleOwner(),classroom -> {
+                            if(classroom!=null){
+                                JoinDialogFragment joinDialogFragment = new JoinDialogFragment("Join with "+ classroom.getName(),"Make sure you want join class with ID "+classroom.getClassroomId()+"?",classroom);
+                                joinDialogFragment.show(getActivity().getSupportFragmentManager(), null);
+                                joinDialogFragment.setCancelable(false);
+                                edtSearhToJoin.setText("");
+                            }
+                        });
+                    }else{
+                        Toast.makeText(getActivity(), "ID classroom was not existed!", Toast.LENGTH_SHORT).show();
+                    }
+                    loadSpinner(idStudent);
+                    return false;
+                }
+                return false;
+            }
+        });
+        spinClassroom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(listClassroom.size()>0){
+                    int selectedId = listClassroom.get(position).getClassroomId();
+                    studentViewModel.getSubjectIds(selectedId).observe(getViewLifecycleOwner(),ids->{
+                        studentViewModel.getSubjectsByClassroomId(ids).observe(getViewLifecycleOwner(),subjects -> {
+                            listSubjects = subjects;
+                            SpinnerTestingSubjectAdapter subjectAdapter = new SpinnerTestingSubjectAdapter(getActivity(), listSubjects);
+                            spinSubject.setAdapter(subjectAdapter);
+                        });
+                    });
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+    void loadSpinner(int idStudent){
+        studentViewModel.getStudentById(idStudent).observe(getViewLifecycleOwner(),item->{
+            student = item;
+            studentViewModel.getListClassroomId(student.getStudentId()).observe(getViewLifecycleOwner(),ls -> {
+                if(ls.size()>0){
+                    studentViewModel.getClassroomsByIds(ls).observe(getViewLifecycleOwner(),classrooms -> {
+                        listClassroom = classrooms;
+                        SpinnerTestingClassroomAdapter classroomAdapter = new SpinnerTestingClassroomAdapter(getActivity(), classrooms);
+                        spinClassroom.setAdapter(classroomAdapter);
+                    });
+                }
+            });
+        });
     }
 
 }

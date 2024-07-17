@@ -1,29 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
     tools:context=".Fragment.Teacher.SubjectFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="subject" />
-
-    <Button
-        android:id="@+id/btnToQuestion"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Question" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnToFindSubject"
-        android:layout_width="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCreateSub"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/baseline_add_24"
+            android:backgroundTint="@color/black" />
+
+        <EditText
+            android:id="@+id/edtSearchSubj"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autofillHints="id"
+            android:background="@color/light_gray"
+            android:drawableStart="@drawable/baseline_search_24"
+            android:drawablePadding="10dp"
+            android:hint="Search by ID"
+            android:inputType="text"
+            android:padding="15dp"
+            android:textSize="8pt" />
+
+        <ImageView
+            android:id="@+id/btnAccount"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/baseline_account_circle_24" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recySubject"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="50dp"
-        android:text="Find subject" />
-
-</FrameLayout>
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/recycler_view_subject_item_layout"/>
+</LinearLayout>

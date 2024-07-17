@@ -24,10 +24,12 @@ public interface ClassroomDAO {
     @Query("SELECT * FROM classroom WHERE classroomId = :id")
     LiveData<Classroom> getQuestionByID(int id);
     @Query("SELECT * FROM classroom WHERE classroomId = :id")
-    LiveData<Classroom> getClassroomById(int id);
+    public LiveData<Classroom> getClassroomById(int id);
     @Delete
     public void deleteClassroom(Classroom classroom);
     @Query("SELECT * FROM teacher WHERE teacherId = :teacherId")
     Teacher getTeacherById(int teacherId);
+    @Query("SELECT * FROM classroom WHERE classroomId IN (:ids)")
+    public LiveData<List<Classroom> >getClassroomsByIds(List<Integer> ids);
 
 }

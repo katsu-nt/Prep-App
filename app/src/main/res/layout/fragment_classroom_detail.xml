@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:paddingLeft="10sp"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:layout_marginTop="20sp"/>
 
@@ -60,14 +60,18 @@
                 android:layout_width="150sp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:layout_marginTop="20sp"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/add"
                 android:gravity="right"
+                android:id="@+id/addStudentDL"
                 android:layout_marginRight="10sp"
                 android:layout_marginLeft="20sp"
+
                />
 
 
@@ -78,7 +82,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="TextView" />
+            android:text="TextView"
+            android:layout_marginLeft="20sp"
+            />
     </LinearLayout>
 
 </LinearLayout>
