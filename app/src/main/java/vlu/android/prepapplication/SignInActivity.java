@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
                     if(role.equals("Student")){
                         repository.getStudentByUsername(username).observe(SignInActivity.this,student->{
                             if (student != null && student.getPassword().equals(password)) {
-                                Toast.makeText(SignInActivity.this, "Welcome " + student.getName(), Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(SignInActivity.this, StudentActivity.class);
                                 intent.putExtra("studentId", student.getStudentId());
                                 startActivity(intent);
@@ -75,7 +75,7 @@ public class SignInActivity extends AppCompatActivity {
                     }else{
                         repository.getTeacherByUsername(username).observe(SignInActivity.this,teacher->{
                             if (teacher != null && teacher.getPassword().equals(password)) {
-                                Toast.makeText(SignInActivity.this, "Welcome " + teacher.getName(), Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(SignInActivity.this, TeacherActivity.class);
                                 intent.putExtra("teacherId", teacher.getTeacherId());
                                 startActivity(intent);

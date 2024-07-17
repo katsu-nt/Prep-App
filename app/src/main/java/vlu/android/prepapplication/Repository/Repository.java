@@ -1,15 +1,22 @@
 package vlu.android.prepapplication.Repository;
 
 import android.app.Application;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.Transformations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Consumer;
 
 import vlu.android.prepapplication.Model.Classroom;
+import vlu.android.prepapplication.Model.ClassroomStudentCrossRef;
 import vlu.android.prepapplication.Model.DAO.ClassroomDAO;
 import vlu.android.prepapplication.Model.DAO.ClassroomStudentCrossRefDAO;
 import vlu.android.prepapplication.Model.DAO.ClassroomSubjectCrossRefDAO;
@@ -211,6 +218,25 @@ public class Repository {
     public LiveData<Student> getStudentById(int id){
         return studentDAO.getStudentById(id);
     }
+    public LiveData<Classroom> getClassroomById(int id){return classroomDAO.getClassroomById(id);}
+    public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef){
+        PrepDatabase.databaseWriteExecutor.execute(()-> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
+    }
+    public LiveData<Integer> checkJoined(int studentId,int classId){
+        return classroomStudentCrossRefDAO.checkJoined(studentId,classId);
+    }
 
+    public LiveData<List<Integer>> getListClassroomId (int studentId) {
+        return classroomStudentCrossRefDAO.getListClassroomId(studentId);
+    }
+    public LiveData<List<Classroom>> getClassroomsByIds(List<Integer> ids){
+        return classroomDAO.getClassroomsByIds(ids);
+    }
+    public LiveData<List<Integer>> getSubjectIds(int classroomId){
+        return classroomSubjectCrossRefDAO.getSubjectIds(classroomId);
+    }
+    public LiveData<List<Subject>> getSubjectsByClassroomId(List<Integer> ids){
+        return subjectDAO.getSubjectsByClassroomId(ids);
+    }
 
 }

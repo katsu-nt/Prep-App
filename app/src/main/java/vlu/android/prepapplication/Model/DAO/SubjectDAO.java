@@ -27,4 +27,6 @@ public interface SubjectDAO {
 
     @Delete
     public void deleteSubjet(Subject subject);
+    @Query("Select * from subject where subjectId in (:ids)")
+    public LiveData<List<Subject>> getSubjectsByClassroomId(List<Integer> ids);
 }

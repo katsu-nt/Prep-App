@@ -13,6 +13,6 @@ import vlu.android.prepapplication.Model.ClassroomSubjectCrossRef;
 public interface ClassroomSubjectCrossRefDAO {
     @Insert
     public void insert(ClassroomSubjectCrossRef classroomSubjectCrossRef);
-    @Query("Select * from classroomsubjectcrossref where classroomId = :id")
-    public LiveData<List<ClassroomSubjectCrossRef>> getAllByClassroomId(int id);
+    @Query("Select subjectId from classroomsubjectcrossref where classroomId = :id")
+    public LiveData<List<Integer>> getSubjectIds(int id);
 }
