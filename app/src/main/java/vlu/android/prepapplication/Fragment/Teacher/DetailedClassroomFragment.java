@@ -3,10 +3,13 @@ package vlu.android.prepapplication.Fragment.Teacher;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import vlu.android.prepapplication.R;
 
@@ -61,6 +64,16 @@ public class DetailedClassroomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_classroom_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_classroom_detail, container, false);
+
+        Button btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.flTeacher, new SubjectFragment());
+            fragmentTransaction.commit();
+        });
+        return view;
     }
+
 }
