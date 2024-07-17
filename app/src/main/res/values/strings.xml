@@ -12,4 +12,6 @@
     <string name="answer_b">B. %s</string>
     <string name="answer_c">C. %s</string>
     <string name="answer_d">D. %s</string>
+    <string name="cannot_find_question">Cannot find question with id %d in subject with id %d</string>
+    <string name="id_with_value">ID: %d</string>
 </resources>
