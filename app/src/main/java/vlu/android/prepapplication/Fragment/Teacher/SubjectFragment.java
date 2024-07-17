@@ -2,6 +2,7 @@ package vlu.android.prepapplication.Fragment.Teacher;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -66,7 +68,8 @@ public class SubjectFragment extends Fragment {
 
         edtSearchSubj.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -78,7 +81,8 @@ public class SubjectFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
 
         adapter.setOnItemClickListener(new RecyclerViewSubjectAdapter.onItemClickListener() {
@@ -86,14 +90,18 @@ public class SubjectFragment extends Fragment {
             public void onItemClick(Subject subject) {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.flTeacher, new QuestionFragment());
+                QuestionFragment questionFragment = new QuestionFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("subjectId", subject.getSubjectId());
+                questionFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.flTeacher, questionFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
 
         Button btnCreateSub = view.findViewById(R.id.btnCreateSub);
-        btnCreateSub.setOnClickListener(v-> {
+        btnCreateSub.setOnClickListener(v -> {
             View dialog = LayoutInflater.from(getContext()).inflate(R.layout.dialog_add_subject_layout, (ViewGroup) view.getRootView(), false);
             EditText edtCreateName = dialog.findViewById(R.id.edtCreateName);
             EditText edtCreateDescription = dialog.findViewById(R.id.edtCreateDescription);
@@ -103,12 +111,12 @@ public class SubjectFragment extends Fragment {
                         String name = edtCreateName.getText().toString();
                         String description = edtCreateDescription.getText().toString();
 
-                        if (name.isEmpty()){
+                        if (name.isEmpty()) {
                             Toast.makeText(getContext(), "Missing name subject content", Toast.LENGTH_LONG).show();
                             return;
                         }
 
-                        if (description.isEmpty()){
+                        if (description.isEmpty()) {
                             Toast.makeText(getContext(), "Missing description subject content", Toast.LENGTH_LONG).show();
                             return;
                         }

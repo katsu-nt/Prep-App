@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Collections;
+import java.util.List;
 
 import vlu.android.prepapplication.Adapter.RecyclerViewQuestionAdapter;
 import vlu.android.prepapplication.Model.Question;
@@ -93,7 +94,15 @@ public class QuestionFragment extends Fragment {
         //questionViewModel.insert(new Question("Java được phát minh vào năm?", "1994", "1995", "1996", "2024", "1995"));
         RecyclerViewQuestionAdapter adapter = new RecyclerViewQuestionAdapter(questionViewModel);
         rcvQuestion.setAdapter(adapter);
-        questionViewModel.getAllQuestionLiveData().observe(getViewLifecycleOwner(), adapter::updateQuestions);
+
+        Bundle bundle = getArguments();
+        LiveData<List<Question>> questionLiveData;
+        if (bundle == null || bundle.getInt("subjectId", -1) == -1) {
+            questionLiveData = questionViewModel.getAllQuestionLiveData();
+        } else {
+            questionLiveData = questionViewModel.getQuestionBySubjectID(bundle.getInt("subjectId"));
+        }
+        questionLiveData.observe(getViewLifecycleOwner(), adapter::updateQuestions);
 
         RecyclerViewQuestionAdapter searchAdapter = new RecyclerViewQuestionAdapter(questionViewModel);
         EditText edtSearchByID = view.findViewById(R.id.edtSearchByID);
@@ -177,7 +186,7 @@ public class QuestionFragment extends Fragment {
                     answer = answerD;
                 }
 
-                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer,1),
+                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, 1),
                         () -> requireActivity().runOnUiThread(() -> {
                             Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
                             alertDialog.dismiss();

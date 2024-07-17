@@ -19,6 +19,9 @@ public interface QuestionDAO {
     @Query("SELECT * FROM question")
     public LiveData<List<Question>> getAllQuestion();
 
+    @Query("SELECT * FROM question WHERE subjectId = :subjectId")
+    public LiveData<List<Question>> getQuestionsBySubjectID(int subjectId);
+
     @Query("SELECT * FROM question WHERE questionId = :id")
     public LiveData<Question> getQuestionByID(int id);
 

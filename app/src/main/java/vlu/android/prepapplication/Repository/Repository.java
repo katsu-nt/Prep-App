@@ -88,6 +88,10 @@ public class Repository {
         return questionDAO.getAllQuestion();
     }
 
+    public LiveData<List<Question>> getQuestionsBySubjectID(int subjectId) {
+        return questionDAO.getQuestionsBySubjectID(subjectId);
+    }
+
     public LiveData<Question> getQuestionByID(int id) {
         return questionDAO.getQuestionByID(id);
     }
