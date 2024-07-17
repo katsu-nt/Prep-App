@@ -2,14 +2,11 @@ package vlu.android.prepapplication.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.text.style.TtsSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -21,8 +18,6 @@ import java.util.List;
 
 
 import vlu.android.prepapplication.Fragment.Teacher.DetailedClassroomFragment;
-
-import vlu.android.prepapplication.Fragment.Teacher.DetailedSubjectFragment;
 
 
 import vlu.android.prepapplication.Model.Classroom;

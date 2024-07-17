@@ -86,7 +86,7 @@ public class SubjectFragment extends Fragment {
             public void onItemClick(Subject subject) {
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.flTeacher, DetailedSubjectFragment.newInstance(subject.getName(), String.valueOf(subject.getSubjectId()), subject.getDescription()));
+                fragmentTransaction.replace(R.id.flTeacher, new QuestionFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
