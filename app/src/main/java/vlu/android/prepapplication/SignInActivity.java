@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import vlu.android.prepapplication.Model.Student;
 import vlu.android.prepapplication.Model.Teacher;
@@ -22,9 +24,10 @@ import vlu.android.prepapplication.Repository.Repository;
 public class SignInActivity extends AppCompatActivity {
     private String role = "Student";
     Button btnSignIn;
-    EditText edtUsername,edtPass;
-    TextView txtForgot,txtSignUp;
+    EditText edtUsername, edtPass;
+    TextView txtForgot, txtSignUp;
     private Repository repository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,8 @@ public class SignInActivity extends AppCompatActivity {
         addControl();
         addEvent();
     }
-    void addControl(){
+
+    void addControl() {
         btnSignIn = findViewById(R.id.btnSignInOk);
         edtPass = findViewById(R.id.edtSignInPass);
         edtUsername = findViewById(R.id.edtSignInUsername);
@@ -48,40 +52,50 @@ public class SignInActivity extends AppCompatActivity {
         txtSignUp = findViewById(R.id.txtSignInToSignUp);
     }
 
-    void addEvent(){
+    void addEvent() {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username, password;
-                username = edtUsername.getText().toString().toString();
-                password = edtPass.getText().toString().toString();
+                username = edtUsername.getText().toString();
+                password = edtPass.getText().toString();
 
-                if(username.length()<6||password.length()<6){
-                    Toast.makeText(SignInActivity.this,"Invalid username or password",Toast.LENGTH_SHORT).show();
-                }else{
-                    if(role.equals("Student")){
-                        repository.getStudentByUsername(username).observe(SignInActivity.this,student->{
-                            if (student != null && student.getPassword().equals(password)) {
-
-                                Intent intent = new Intent(SignInActivity.this, StudentActivity.class);
-                                intent.putExtra("studentId", student.getStudentId());
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(SignInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                if (username.length() < 6 || password.length() < 6) {
+                    Toast.makeText(SignInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (role.equals("Student")) {
+                        LiveData<Student> studentLiveData = repository.getStudentByUsername(username);
+                        studentLiveData.observe(SignInActivity.this, new Observer<Student>() {
+                            @Override
+                            public void onChanged(Student student) {
+                                if (student != null && student.getPassword().equals(password)) {
+                                    Toast.makeText(SignInActivity.this, "Welcome " + student.getName(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignInActivity.this, StudentActivity.class);
+                                    intent.putExtra("studentId", student.getStudentId());
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(SignInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                                }
+                                studentLiveData.removeObserver(this);
                             }
                         });
 
-                    }else{
-                        repository.getTeacherByUsername(username).observe(SignInActivity.this,teacher->{
-                            if (teacher != null && teacher.getPassword().equals(password)) {
-
-                                Intent intent = new Intent(SignInActivity.this, TeacherActivity.class);
-                                intent.putExtra("teacherId", teacher.getTeacherId());
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                Toast.makeText(SignInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                    } else {
+                        LiveData<Teacher> teacherLiveData = repository.getTeacherByUsername(username);
+                        teacherLiveData.observe(SignInActivity.this, new Observer<Teacher>() {
+                            @Override
+                            public void onChanged(Teacher teacher) {
+                                if (teacher != null && teacher.getPassword().equals(password)) {
+                                    Toast.makeText(SignInActivity.this, "Welcome " + teacher.getName(), Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignInActivity.this, TeacherActivity.class);
+                                    intent.putExtra("teacherId", teacher.getTeacherId());
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    Toast.makeText(SignInActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                                }
+                                teacherLiveData.removeObserver(this);
                             }
                         });
                     }
@@ -93,7 +107,7 @@ public class SignInActivity extends AppCompatActivity {
         txtSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
