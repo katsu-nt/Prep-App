@@ -64,9 +64,17 @@ public class Repository {
     public LiveData<Teacher> getTeacherByUserName(String username) {
         return teacherDAO.getTeacherByUserName(username);
     }
-
-    public LiveData<Student> getStudentByUserName(String username) {
+    public void connectDB(){
+        PrepDatabase.databaseWriteExecutor.execute(() -> studentDAO.connectDB());
+    }
+    public LiveData<Student> getStudentByUsername(String username){
         return studentDAO.getStudentByUserName(username);
+    }
+    public LiveData<Teacher> getTeacherByUsername(String username){
+        return teacherDAO.getTeacherByUserName(username);
+    }
+    public LiveData<Teacher> getTeacherById(int id){
+        return teacherDAO.getTeacherById(id);
     }
 
     public LiveData<List<Question>> getAllQuestion() {

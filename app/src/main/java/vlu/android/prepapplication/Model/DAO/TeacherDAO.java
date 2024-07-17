@@ -18,8 +18,8 @@ public interface TeacherDAO {
     public void insert(Teacher teacher);
     @Update
     public void update(Teacher teacher);
-    @Query("Select * from teacher where userName =:userName")
+    @Query("Select * from teacher where userName like :userName")
     public LiveData<Teacher> getTeacherByUserName(String userName);
-
-
+    @Query("Select * from teacher where teacherId = :id")
+    public LiveData<Teacher> getTeacherById(int id);
 }
