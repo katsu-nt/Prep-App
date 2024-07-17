@@ -1,6 +1,7 @@
 package vlu.android.prepapplication.Adapter;
 
 import android.app.AlertDialog;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,66 +42,75 @@ public class RecyclerViewQuestionAdapter extends RecyclerView.Adapter<RecyclerVi
 
         String questionId = String.valueOf(question.getQuestionId());
         String questionContent = question.getContent();
-        String answerA = question.getAnswerA();
-        String answerB = question.getAnswerB();
-        String answerC = question.getAnswerC();
-        String answerD = question.getAnswerD();
 
         holder.getTvQuestionID().setText(questionId);
         holder.getTvQuestionContent().setText(questionContent);
 
         View itemView = holder.itemView;
+        itemView.setOnClickListener(view -> onItemClick(view, question));
+        itemView.setOnLongClickListener(view -> onItemLongClick(view, question));
+    }
 
-        int red = itemView.getResources().getColor(R.color.red, null);
-        int green = itemView.getResources().getColor(R.color.green, null);
+    private void onItemClick(View view, Question question) {
+        int questionId = question.getQuestionId();
+        String questionContent = question.getContent();
 
-        itemView.setOnClickListener(view -> {
-            View dialogView = LayoutInflater.
-                    from(view.getContext()).
-                    inflate(R.layout.dialog_question_detail_layout,
-                            (ViewGroup) itemView.getRootView(), false);
+        String answerA = question.getAnswerA();
+        String answerB = question.getAnswerB();
+        String answerC = question.getAnswerC();
+        String answerD = question.getAnswerD();
 
-            TextView tvQuestionContent = dialogView.findViewById(R.id.tvQuestionContent);
-            Button btnAnswerA = dialogView.findViewById(R.id.btnAnswerA);
-            Button btnAnswerB = dialogView.findViewById(R.id.btnAnswerB);
-            Button btnAnswerC = dialogView.findViewById(R.id.btnAnswerC);
-            Button btnAnswerD = dialogView.findViewById(R.id.btnAnswerD);
-            Function<String, Integer> getColor = s -> questionViewModel.isCorrectAnswer(question, s) ? green : red;
+        int red = view.getResources().getColor(R.color.red, null);
+        int green = view.getResources().getColor(R.color.green, null);
 
-            tvQuestionContent.setText(questionContent);
+        View dialogView = LayoutInflater.
+                from(view.getContext()).
+                inflate(R.layout.dialog_question_detail_layout,
+                        (ViewGroup) view.getRootView(), false);
 
-            btnAnswerA.setText(dialogView.getContext().getString(R.string.answer_a, answerA));
-            btnAnswerA.setBackgroundColor(getColor.apply(answerA));
+        TextView tvQuestionContent = dialogView.findViewById(R.id.tvQuestionContent);
+        Button btnAnswerA = dialogView.findViewById(R.id.btnAnswerA);
+        Button btnAnswerB = dialogView.findViewById(R.id.btnAnswerB);
+        Button btnAnswerC = dialogView.findViewById(R.id.btnAnswerC);
+        Button btnAnswerD = dialogView.findViewById(R.id.btnAnswerD);
+        Function<String, Integer> getColor = s -> questionViewModel.isCorrectAnswer(question, s) ? green : red;
 
-            btnAnswerB.setText(dialogView.getContext().getString(R.string.answer_b, answerB));
-            btnAnswerB.setBackgroundColor(getColor.apply(answerB));
+        tvQuestionContent.setText(questionContent);
 
-            btnAnswerC.setText(dialogView.getContext().getString(R.string.answer_c, answerC));
-            btnAnswerC.setBackgroundColor(getColor.apply(answerC));
+        btnAnswerA.setText(dialogView.getContext().getString(R.string.answer_a, answerA));
+        btnAnswerA.setBackgroundColor(getColor.apply(answerA));
 
-            btnAnswerD.setText(dialogView.getContext().getString(R.string.answer_d, answerD));
-            btnAnswerD.setBackgroundColor(getColor.apply(answerD));
+        btnAnswerB.setText(dialogView.getContext().getString(R.string.answer_b, answerB));
+        btnAnswerB.setBackgroundColor(getColor.apply(answerB));
 
-            new AlertDialog.
-                    Builder(view.getContext()).
-                    setTitle(questionId).
-                    setView(dialogView).
-                    setPositiveButton("Confirm", (dialogInterface, i) -> dialogInterface.cancel()).
-                    create().
-                    show();
-        });
+        btnAnswerC.setText(dialogView.getContext().getString(R.string.answer_c, answerC));
+        btnAnswerC.setBackgroundColor(getColor.apply(answerC));
 
-        itemView.setOnLongClickListener(view -> {
-            new AlertDialog.Builder(view.getContext()).
-                    setTitle(String.format(
-                            "Are you sure you want to delete question with id: %s",
-                            questionId)
-                    ).
-                    setPositiveButton("Confirm", (dialogInterface, i) -> questionViewModel.delete(question)).
-                    setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
-                    show();
-            return true;
-        });
+        btnAnswerD.setText(dialogView.getContext().getString(R.string.answer_d, answerD));
+        btnAnswerD.setBackgroundColor(getColor.apply(answerD));
+
+        new AlertDialog.
+                Builder(view.getContext()).
+                setTitle(view.getContext().getString(R.string.id_with_value, questionId)).
+                setView(dialogView).
+                setNeutralButton("Update", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                }).
+                setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
+                create().
+                show();
+    }
+
+    private boolean onItemLongClick(View view, Question question) {
+        new AlertDialog.Builder(view.getContext()).
+                setTitle(String.format(
+                        "Are you sure you want to delete question with id: %s",
+                        question.getQuestionId())
+                ).
+                setPositiveButton("Confirm", (dialogInterface, i) -> questionViewModel.delete(question)).
+                setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
+                show();
+        return true;
     }
 
     @Override

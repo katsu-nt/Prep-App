@@ -16,14 +16,11 @@ public interface QuestionDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public void insert(Question question);
 
-    @Query("SELECT * FROM question")
-    public LiveData<List<Question>> getAllQuestion();
-
     @Query("SELECT * FROM question WHERE subjectId = :subjectId")
-    public LiveData<List<Question>> getQuestionsBySubjectID(int subjectId);
+    public LiveData<List<Question>> getAllQuestion(int subjectId);
 
-    @Query("SELECT * FROM question WHERE questionId = :id")
-    public LiveData<Question> getQuestionByID(int id);
+    @Query("SELECT * FROM question WHERE questionId = :id AND subjectId = :subjectId")
+    public LiveData<Question> getQuestionByID(int id, int subjectId);
 
     @Delete
     public void deleteQuestion(Question question);

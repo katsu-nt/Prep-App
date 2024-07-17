@@ -1,11 +1,9 @@
 package vlu.android.prepapplication.Fragment.Teacher;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,16 +17,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Collections;
-import java.util.List;
 
 import vlu.android.prepapplication.Adapter.RecyclerViewQuestionAdapter;
 import vlu.android.prepapplication.Model.Question;
@@ -41,6 +35,7 @@ import vlu.android.prepapplication.ViewModel.QuestionViewModel;
  * create an instance of this fragment.
  */
 public class QuestionFragment extends Fragment {
+    private int subjectId;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,21 +83,29 @@ public class QuestionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_question, container, false);
 
-        RecyclerView rcvQuestion = view.findViewById(R.id.rcvQuestion);
+        Button btnBack = view.findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.flTeacher, new SubjectFragment());
+            fragmentTransaction.commit();
+        });
+
         questionViewModel = new ViewModelProvider((requireActivity())).get(QuestionViewModel.class);
 //        questionViewModel.insert(new Question("1 + 1 = ?", "3", "1", "0", "2", "2"));
         //questionViewModel.insert(new Question("Java được phát minh vào năm?", "1994", "1995", "1996", "2024", "1995"));
         RecyclerViewQuestionAdapter adapter = new RecyclerViewQuestionAdapter(questionViewModel);
-        rcvQuestion.setAdapter(adapter);
 
         Bundle bundle = getArguments();
-        LiveData<List<Question>> questionLiveData;
-        if (bundle == null || bundle.getInt("subjectId", -1) == -1) {
-            questionLiveData = questionViewModel.getAllQuestionLiveData();
+        if (bundle != null && (subjectId = bundle.getInt("subjectId", -1)) != -1) {
+            questionViewModel.getAllQuestion(subjectId).observe(getViewLifecycleOwner(), adapter::updateQuestions);
         } else {
-            questionLiveData = questionViewModel.getQuestionBySubjectID(bundle.getInt("subjectId"));
+            Toast.makeText(requireContext(), "you are not allowed to be here", Toast.LENGTH_LONG).show();
+            return view;
         }
-        questionLiveData.observe(getViewLifecycleOwner(), adapter::updateQuestions);
+
+        RecyclerView rcvQuestion = view.findViewById(R.id.rcvQuestion);
+        rcvQuestion.setAdapter(adapter);
 
         RecyclerViewQuestionAdapter searchAdapter = new RecyclerViewQuestionAdapter(questionViewModel);
         EditText edtSearchByID = view.findViewById(R.id.edtSearchByID);
@@ -122,7 +125,7 @@ public class QuestionFragment extends Fragment {
                 if (rcvQuestion.getAdapter() != searchAdapter) {
                     rcvQuestion.setAdapter(searchAdapter);
                 }
-                LiveData<Question> result = questionViewModel.getQuestionLiveData(id);
+                LiveData<Question> result = questionViewModel.getQuestionByID(id, subjectId);
                 result.observe(getViewLifecycleOwner(), new Observer<Question>() {
                     @Override
                     public void onChanged(Question question) {
@@ -130,7 +133,10 @@ public class QuestionFragment extends Fragment {
                             searchAdapter.updateQuestions(Collections.singletonList(question));
                             return;
                         }
-                        Toast.makeText(requireContext(), "Cannot find question with id " + id, Toast.LENGTH_LONG).show();
+                        Toast.makeText(requireContext(), String.format(getString(
+                                        R.string.cannot_find_question
+                                ), id, subjectId),
+                                Toast.LENGTH_LONG).show();
                         searchAdapter.updateQuestions(Collections.emptyList());
                         result.removeObserver(this);
                     }
@@ -140,14 +146,6 @@ public class QuestionFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
             }
-        });
-
-        Button btnBack = view.findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getParentFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.flTeacher, new SubjectFragment());
-            fragmentTransaction.commit();
         });
 
         Button btnAddQuestion = view.findViewById(R.id.btnAddQuestion);
@@ -160,13 +158,7 @@ public class QuestionFragment extends Fragment {
             EditText edtAnswerD = dialog.findViewById(R.id.edtAnswerD);
             RadioGroup rdgCorrectAnswer = dialog.findViewById(R.id.rdgCorrectAnswer);
 
-            AlertDialog alertDialog = new AlertDialog.
-                    Builder(requireContext()).
-                    setTitle("New question").
-                    setView(dialog).
-                    setPositiveButton("Save", null).
-                    setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
-                    show();
+            AlertDialog alertDialog = new AlertDialog.Builder(requireContext()).setTitle("New question").setView(dialog).setPositiveButton("Save", null).setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).show();
 
             alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(view1 -> {
                 String content = edtQuestionContent.getText().toString();
@@ -186,12 +178,10 @@ public class QuestionFragment extends Fragment {
                     answer = answerD;
                 }
 
-                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, 1),
-                        () -> requireActivity().runOnUiThread(() -> {
-                            Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
-                            alertDialog.dismiss();
-                        }),
-                        s -> requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()));
+                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, subjectId), () -> requireActivity().runOnUiThread(() -> {
+                    Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
+                    alertDialog.dismiss();
+                }), s -> requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()));
             });
         });
 

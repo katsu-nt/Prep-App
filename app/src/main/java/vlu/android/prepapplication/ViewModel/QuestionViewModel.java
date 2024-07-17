@@ -24,19 +24,14 @@ public class QuestionViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
 
-    public LiveData<List<Question>> getAllQuestionLiveData() {
-        questionsLiveData = repository.getAllQuestion();
-        return questionsLiveData;
-    }
-
-    public LiveData<List<Question>> getQuestionBySubjectID(int subjectId) {
-        subjectQuestionsLiveData = repository.getQuestionsBySubjectID(subjectId);
+    public LiveData<List<Question>> getAllQuestion(int subjectId) {
+        subjectQuestionsLiveData = repository.getAllQuestion(subjectId);
         return subjectQuestionsLiveData;
     }
 
 
-    public LiveData<Question> getQuestionLiveData(int id) {
-        questionLiveData = repository.getQuestionByID(id);
+    public LiveData<Question> getQuestionByID(int id, int subjectId) {
+        questionLiveData = repository.getQuestionByID(id, subjectId);
         return questionLiveData;
     }
 
