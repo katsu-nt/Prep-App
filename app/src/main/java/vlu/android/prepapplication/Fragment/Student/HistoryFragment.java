@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import vlu.android.prepapplication.Adapter.SpinnerHistoryExamAdapter;
@@ -33,6 +34,7 @@ import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.Exam;
 import vlu.android.prepapplication.Model.Student;
+import vlu.android.prepapplication.Model.StudentExamQuestionCrossRef;
 import vlu.android.prepapplication.Model.Subject;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.StudentViewModel;
@@ -179,9 +181,23 @@ public class HistoryFragment extends Fragment {
                 if(listSubjects.size()>0){
                     selectedSubject = listSubjects.get(position);
                     studentViewModel.getExams(selectedSubject.getSubjectId()).observe(getViewLifecycleOwner(),exams -> {
-                            examList = exams;
-                            SpinnerHistoryExamAdapter examAdapter = new SpinnerHistoryExamAdapter(getActivity(), examList);
-                            spinExam.setAdapter(examAdapter);
+                            examList =  new ArrayList<>();
+                            List<Exam> ls = new ArrayList<>();
+                            studentViewModel.getAllExamByStudent(idStudent).observe(getViewLifecycleOwner(),studentExamQuestionCrossRefs -> {
+                                for (StudentExamQuestionCrossRef st: studentExamQuestionCrossRefs
+                                     ) {
+                                    exams.forEach(e->{
+                                        if(st.getExamId() == e.getExamId()){
+                                            if(!examList.contains(e)){
+                                                examList.add(e);
+                                            }
+
+                                        }
+                                    });
+                                }
+                                SpinnerHistoryExamAdapter examAdapter = new SpinnerHistoryExamAdapter(getActivity(), examList);
+                                spinExam.setAdapter(examAdapter);
+                            });
                     });
                 }else {
                     examList = null;

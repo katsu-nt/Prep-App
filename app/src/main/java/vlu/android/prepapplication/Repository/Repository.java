@@ -325,4 +325,7 @@ public class Repository {
         return questionDAO.getQuetsionId(id);
     }
 
+    public LiveData<List<StudentExamQuestionCrossRef>> getAllExamByStudent(int studentId){
+        return studentExamQuestionCrossRefDAO.getAllExamByStudent(studentId);
+    }
 }

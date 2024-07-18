@@ -103,4 +103,8 @@ public class StudentViewModel extends AndroidViewModel {
     public LiveData<Question> getQuestionId(int id) {
         return repository.getQuetsionId(id);
     }
+
+    public LiveData<List<StudentExamQuestionCrossRef>> getAllExamByStudent(int studentId){
+        return repository.getAllExamByStudent(studentId);
+    }
 }

@@ -15,6 +15,7 @@ public interface StudentExamQuestionCrossRefDAO {
     public void insert(StudentExamQuestionCrossRef studentExamQuestionCrossRef);
     @Query("select * from StudentExamQuestionCrossRef where examId = :id")
     public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int id);
-    
+    @Query("select * from studentexamquestioncrossref where studentId = :studentId")
+    public LiveData<List<StudentExamQuestionCrossRef>> getAllExamByStudent (int studentId);
 
 }
