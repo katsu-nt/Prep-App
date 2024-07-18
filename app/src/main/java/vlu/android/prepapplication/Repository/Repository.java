@@ -97,7 +97,7 @@ public class Repository {
     }
 
     public void delete(Question question) {
-        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.deleteQuestion(question));
+        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.delete(question));
     }
 
     public LiveData<List<Classroom>> getAllClassroom() {
@@ -254,6 +254,7 @@ public class Repository {
         return studentDAO.getStudentById(id);
     }
 
+
     public LiveData<Classroom> getClassroomById(int id) {
         return classroomDAO.getClassroomById(id);
     }
@@ -261,6 +262,13 @@ public class Repository {
     public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef) {
         PrepDatabase.databaseWriteExecutor.execute(() -> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
     }
+
+    public LiveData<Classroom> getClassroomById(int id){return classroomDAO.getClassroomById(id);}
+    public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef){
+        PrepDatabase.databaseWriteExecutor.execute(()-> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
+    }
+
+
 
     public LiveData<Integer> checkJoined(int studentId, int classId) {
         return classroomStudentCrossRefDAO.checkJoined(studentId, classId);
@@ -282,7 +290,8 @@ public class Repository {
         return subjectDAO.getSubjectsByClassroomId(ids);
     }
 
-    public LiveData<Integer> countQuestion(int subjectId) {
+
+    public LiveData<Integer> countQuestion(int subjectId){
         return questionDAO.countQuestion(subjectId);
     }
 
@@ -308,6 +317,14 @@ public class Repository {
 
     public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int examId) {
         return studentExamQuestionCrossRefDAO.getAllExam(examId);
+    }
+    public void updateTeacher(Teacher teacher){
+        PrepDatabase.databaseWriteExecutor.execute(()-> teacherDAO.update(teacher));
+    }public void udpateStudent(Student student){
+        PrepDatabase.databaseWriteExecutor.execute(()-> studentDAO.udpate(student));
+    }
+    public LiveData<Question> getQuestionById(int id) {
+        return questionDAO.getQuestionById(id);
     }
 
 }

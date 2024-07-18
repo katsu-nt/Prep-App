@@ -26,6 +26,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDetailedClassroomAccount"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/baseline_account_circle_24"

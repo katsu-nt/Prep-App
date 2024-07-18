@@ -33,10 +33,12 @@
             android:inputType="number"
             android:padding="15dp"
             android:textSize="8pt" />
+
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnClassAccount"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@mipmap/ic_launcher" />
+            android:background="@drawable/baseline_account_circle_24" />
 
     </LinearLayout>
 
