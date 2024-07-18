@@ -255,9 +255,6 @@ public class Repository {
         PrepDatabase.databaseWriteExecutor.execute(()-> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
     }
 
-    public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef) {
-        PrepDatabase.databaseWriteExecutor.execute(() -> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
-    }
 
     public LiveData<Integer> checkJoined(int studentId, int classId) {
         return classroomStudentCrossRefDAO.checkJoined(studentId, classId);
@@ -305,6 +302,8 @@ public class Repository {
     }public void udpateStudent(Student student){
         PrepDatabase.databaseWriteExecutor.execute(()-> studentDAO.udpate(student));
     }
-
+    public LiveData<Question> getQuestionById(int id) {
+        return questionDAO.getQuestionById(id);
+    }
 
 }

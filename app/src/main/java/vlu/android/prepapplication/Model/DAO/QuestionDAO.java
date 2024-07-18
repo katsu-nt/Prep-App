@@ -34,4 +34,6 @@ public interface QuestionDAO {
             "SELECT *, RANDOM() AS random_number FROM question WHERE subjectId = :subjectId " +
             ") ORDER BY random_number LIMIT 10")
     public LiveData<List<Question>> getQuestionForExam(int subjectId);
+    @Query("Select * from question where questionId = :id")
+    public LiveData<Question> getQuestionById (int id);
 }
