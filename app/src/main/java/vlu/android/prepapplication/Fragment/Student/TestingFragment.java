@@ -28,6 +28,7 @@ import java.util.List;
 import vlu.android.prepapplication.Adapter.SpinnerTestingClassroomAdapter;
 import vlu.android.prepapplication.Adapter.SpinnerTestingSubjectAdapter;
 import vlu.android.prepapplication.Fragment.Student.CustomDialogFragment.JoinDialogFragment;
+import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.ClassroomStudentCrossRef;
 import vlu.android.prepapplication.Model.Student;
@@ -53,7 +54,7 @@ public class TestingFragment extends Fragment {
     private String mParam2;
     EditText edtSearhToJoin;
     Spinner spinClassroom, spinSubject;
-    Button btnTakeExam;
+    Button btnTakeExam,btnAccount;
     private Student student;
     private StudentViewModel studentViewModel;
     private List<Classroom> listClassroom;
@@ -112,6 +113,8 @@ public class TestingFragment extends Fragment {
         spinClassroom = view.findViewById(R.id.spinTestingClassroom);
         spinSubject = view.findViewById(R.id.spinTestingSubject);
         btnTakeExam = view.findViewById(R.id.btnTakeExam);
+        btnAccount = view.findViewById(R.id.btnTestingAccount);
+
     }
     void addEvent(int idStudent){
         edtSearhToJoin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -135,6 +138,14 @@ public class TestingFragment extends Fragment {
                     return false;
                 }
                 return false;
+            }
+        });
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(0);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.setCancelable(false);
             }
         });
         spinClassroom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

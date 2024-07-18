@@ -2,6 +2,9 @@ package vlu.android.prepapplication.Fragment.Teacher;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -17,12 +20,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
 
 import vlu.android.prepapplication.Adapter.RecyclerViewSubjectAdapter;
+import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.Model.Subject;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.SubjectViewModel;
@@ -40,7 +46,7 @@ public class SubjectFragment extends Fragment {
     private RecyclerViewSubjectAdapter adapter;
     private RecyclerView recySubject;
     private EditText edtSearchSubj;
-
+    private ImageView btnAccount;
     public SubjectFragment() {
         // Required empty public constructor
     }
@@ -154,5 +160,19 @@ public class SubjectFragment extends Fragment {
                 }
             });
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        btnAccount = view.findViewById(R.id.btnSubjectAccount);
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(1);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.setCancelable(false);
+            }
+        });
     }
 }

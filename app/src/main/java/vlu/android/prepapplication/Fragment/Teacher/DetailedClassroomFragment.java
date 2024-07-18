@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import vlu.android.prepapplication.Adapter.RecyclerViewStudentInClassroom;
+import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.StudentViewModel;
 
@@ -42,6 +45,7 @@ public class DetailedClassroomFragment extends Fragment {
     private RecyclerView recyStudent;
     private EditText edtFindStudentById;
     StudentViewModel studentViewModel;
+    Button btnAccount;
     private RecyclerViewStudentInClassroom adapter;
     public DetailedClassroomFragment() {
         // Required empty public constructor
@@ -138,4 +142,17 @@ public class DetailedClassroomFragment extends Fragment {
                 .show();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        btnAccount = view.findViewById(R.id.btnDetailedClassroomAccount);
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(1);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.setCancelable(false);
+            }
+        });
+    }
 }

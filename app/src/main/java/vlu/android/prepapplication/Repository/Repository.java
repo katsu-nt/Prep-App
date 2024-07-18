@@ -259,5 +259,10 @@ public class Repository {
     public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int examId){
         return studentExamQuestionCrossRefDAO.getAllExam(examId);
     }
+    public void updateTeacher(Teacher teacher){
+        PrepDatabase.databaseWriteExecutor.execute(()-> teacherDAO.update(teacher));
+    }public void udpateStudent(Student student){
+        PrepDatabase.databaseWriteExecutor.execute(()-> studentDAO.udpate(student));
+    }
 
 }

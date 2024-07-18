@@ -29,6 +29,7 @@ import vlu.android.prepapplication.Adapter.SpinnerHistoryExamAdapter;
 import vlu.android.prepapplication.Adapter.SpinnerTestingClassroomAdapter;
 import vlu.android.prepapplication.Adapter.SpinnerTestingSubjectAdapter;
 import vlu.android.prepapplication.Fragment.Student.CustomDialogFragment.JoinDialogFragment;
+import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.Exam;
 import vlu.android.prepapplication.Model.Student;
@@ -59,7 +60,7 @@ public class HistoryFragment extends Fragment {
     private List<Classroom> listClassroom;
     private List<Subject> listSubjects;
     private List<Exam> examList;
-    Button btnReview;
+    Button btnReview,btnAccount;
     private Exam selectedExam;
     private Subject selectedSubject;
     public HistoryFragment() {
@@ -116,6 +117,7 @@ public class HistoryFragment extends Fragment {
         spinSubject = view.findViewById(R.id.spinHistorySubject);
         spinExam = view.findViewById(R.id.spinHistoryExam);
         btnReview = view.findViewById(R.id.btnReview);
+        btnAccount = view.findViewById(R.id.btnHistoryAccount);
     }
     void addEvent(int idStudent){
         edtSearhToJoin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -139,6 +141,14 @@ public class HistoryFragment extends Fragment {
                     return false;
                 }
                 return false;
+            }
+        });
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(0);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.setCancelable(false);
             }
         });
         spinClassroom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

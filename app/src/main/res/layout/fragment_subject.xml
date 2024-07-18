@@ -35,7 +35,7 @@
             android:textSize="8pt" />
 
         <ImageView
-            android:id="@+id/btnAccount"
+            android:id="@+id/btnSubjectAccount"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"

@@ -26,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.Collections;
 
 import vlu.android.prepapplication.Adapter.GridViewClassroomAdapter;
+import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.Teacher;
 import vlu.android.prepapplication.R;
@@ -43,6 +44,7 @@ public class ClassroomFragment extends Fragment {
     private TeacherViewModel teacherViewModel;
     private Teacher teacher;
     private TextView txtTeacher;
+    Button btnAccount;
     private ClassroomViewModel classroomViewModel;
 
     public ClassroomFragment() {
@@ -150,5 +152,14 @@ public class ClassroomFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         teacherViewModel = new ViewModelProvider(requireActivity()).get(TeacherViewModel.class);
+        btnAccount = view.findViewById(R.id.btnClassAccount);
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(1);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.setCancelable(false);
+            }
+        });
     }
 }

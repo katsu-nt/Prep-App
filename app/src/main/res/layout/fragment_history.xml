@@ -36,7 +36,7 @@
                     android:textSize="8pt" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnAccount"
+                    android:id="@+id/btnHistoryAccount"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/baseline_account_circle_24" />

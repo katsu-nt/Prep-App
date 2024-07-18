@@ -21,6 +21,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import vlu.android.prepapplication.Fragment.Student.HistoryFragment;
 import vlu.android.prepapplication.Fragment.Student.TestingFragment;
 import vlu.android.prepapplication.Fragment.Teacher.ClassroomFragment;
+import vlu.android.prepapplication.Fragment.Teacher.SettingsFragment;
 import vlu.android.prepapplication.Fragment.Teacher.SubjectFragment;
 import vlu.android.prepapplication.Model.Student;
 import vlu.android.prepapplication.ViewModel.StudentViewModel;
@@ -55,6 +56,9 @@ public class StudentActivity extends AppCompatActivity {
                         break;
                     case "History":
                         replaceFragment(new HistoryFragment());
+                        break;
+                    case "Setting":
+                        replaceFragment(new SettingsFragment());
                         break;
                 }
                 return true;
