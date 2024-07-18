@@ -4,10 +4,10 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "question",foreignKeys = {@ForeignKey(entity = Subject.class,parentColumns = "subjectId",childColumns = "subjectId",onDelete = ForeignKey.CASCADE,onUpdate = ForeignKey.CASCADE)})
+@Entity(tableName = "question", foreignKeys = {@ForeignKey(entity = Subject.class, parentColumns = "subjectId", childColumns = "subjectId", onDelete = ForeignKey.CASCADE, onUpdate = ForeignKey.CASCADE)})
 
 public class Question {
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey(autoGenerate = true)
     private int questionId;
 
 

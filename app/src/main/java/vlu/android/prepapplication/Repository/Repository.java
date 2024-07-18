@@ -91,7 +91,7 @@ public class Repository {
     }
 
     public void delete(Question question) {
-        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.deleteQuestion(question));
+        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.delete(question));
     }
 
     public LiveData<List<Classroom>> getAllClassroom() {
@@ -123,36 +123,44 @@ public class Repository {
         return subjectDAO.getSubjectByName(name);
     }
 
+    private String validateQuestion(Question question) {
+        String content = question.getContent().trim();
+        String answerA = question.getAnswerA().trim();
+        String answerB = question.getAnswerB().trim();
+        String answerC = question.getAnswerC().trim();
+        String answerD = question.getAnswerD().trim();
+        String correctAnswer = question.getCorrectAnswer().trim();
+
+        if (content.isEmpty() ||
+                answerA.isEmpty() ||
+                answerB.isEmpty() ||
+                answerC.isEmpty() ||
+                answerD.isEmpty() ||
+                correctAnswer.isEmpty()) {
+            return "there is a missing field in the question";
+        }
+
+        HashSet<String> answerSet = new HashSet<>(Arrays.asList(answerA, answerB, answerC, answerD));
+
+        if (answerSet.size() < 4) {
+            return "there are repeated answer";
+        }
+
+        if (!answerSet.contains(correctAnswer)) {
+            return "correct answer is not present in the answer set";
+        }
+
+        return "";
+    }
+
     public void insert(Question question, Runnable onSuccess, Consumer<String> onFailure) {
         PrepDatabase.databaseWriteExecutor.execute(() -> {
-            String content = question.getContent().trim();
-            String answerA = question.getAnswerA().trim();
-            String answerB = question.getAnswerB().trim();
-            String answerC = question.getAnswerC().trim();
-            String answerD = question.getAnswerD().trim();
-            String correctAnswer = question.getCorrectAnswer().trim();
+            String problem = validateQuestion(question);
 
-            if (content.isEmpty() ||
-                    answerA.isEmpty() ||
-                    answerB.isEmpty() ||
-                    answerC.isEmpty() ||
-                    answerD.isEmpty() ||
-                    correctAnswer.isEmpty()) {
+            if (!problem.isEmpty()) {
                 if (onFailure != null) {
-                    onFailure.accept("there is a missing field in the question");
+                    onFailure.accept(problem);
                 }
-                return;
-            }
-
-            HashSet<String> answerSet = new HashSet<>(Arrays.asList(answerA, answerB, answerC, answerD));
-
-            if (answerSet.size() < 4) {
-                onFailure.accept("there are repeated answer");
-                return;
-            }
-
-            if (!answerSet.contains(correctAnswer)) {
-                onFailure.accept("correct answer is not present in the answer set");
                 return;
             }
 
@@ -195,6 +203,24 @@ public class Repository {
                     onFailure.accept("Failed to insert classroom: " + e.getMessage());
                 }
                 e.printStackTrace();
+            }
+        });
+    }
+
+    public void update(Question question, Runnable onSuccess, Consumer<String> onFailure) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> {
+            String problem = validateQuestion(question);
+
+            if (!problem.isEmpty()) {
+                if (onFailure != null) {
+                    onFailure.accept(problem);
+                }
+                return;
+            }
+
+            questionDAO.update(question);
+            if (onSuccess != null) {
+                onSuccess.run();
             }
         });
     }
