@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -54,6 +53,7 @@ public class QuestionFragment extends Fragment {
     private String mParam2;
     private QuestionViewModel questionViewModel;
     private Button btnAccount;
+
     public QuestionFragment() {
         // Required empty public constructor
     }
@@ -200,13 +200,13 @@ public class QuestionFragment extends Fragment {
             answer = answerD;
         }
 
-//        questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, subjectId),
-//                () -> requireActivity().
-//                        runOnUiThread(() -> {
-//                            Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
-//                            alertDialog.dismiss();
-//                        }),
-//                s -> requireActivity().
+        questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, subjectId),
+                () -> requireActivity().
+                        runOnUiThread(() -> {
+                            Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
+                            alertDialog.dismiss();
+                        }),
+                s -> requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()));
     }
 
     @Override
@@ -217,7 +217,7 @@ public class QuestionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(1);
-                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(), null);
                 updateAccountDialogFragment.setCancelable(false);
             }
         });
