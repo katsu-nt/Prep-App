@@ -16,6 +16,7 @@ public class QuestionViewModel extends AndroidViewModel {
 
     private Repository repository;
     private LiveData<List<Question>> questionsLiveData;
+    private LiveData<List<Question>> subjectQuestionsLiveData;
     private LiveData<Question> questionLiveData;
 
     public QuestionViewModel(@NonNull Application application) {
@@ -23,18 +24,23 @@ public class QuestionViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
 
-    public LiveData<List<Question>> getAllQuestionLiveData() {
-        questionsLiveData = repository.getAllQuestion();
-        return questionsLiveData;
+    public LiveData<List<Question>> getAllQuestion(int subjectId) {
+        subjectQuestionsLiveData = repository.getAllQuestion(subjectId);
+        return subjectQuestionsLiveData;
     }
 
-    public LiveData<Question> getQuestionLiveData(int id) {
-        questionLiveData = repository.getQuestionByID(id);
+
+    public LiveData<Question> getQuestionByID(int id, int subjectId) {
+        questionLiveData = repository.getQuestionByID(id, subjectId);
         return questionLiveData;
     }
 
     public void insert(Question question, Runnable onSuccess, Consumer<String> onFailure) {
         repository.insert(question, onSuccess, onFailure);
+    }
+
+    public void update(Question question,Runnable onSuccess, Consumer<String> onFailure){
+        repository.update(question, onSuccess, onFailure);
     }
 
     public boolean isCorrectAnswer(Question question, String answer) {
