@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:padding="10dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/tvQuestionContent"
@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:labelFor="@id/edtQuestionContent"
             android:text="Content"
-            android:textSize="10pt"
+            android:textSize="12pt"
             android:textStyle="bold" />
 
         <EditText
@@ -24,9 +24,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvQuestionContent"
             android:autofillHints="question content"
+            android:background="@color/light_gray"
             android:gravity="top"
             android:inputType="textMultiLine"
             android:lines="3"
+            android:padding="12dp"
             android:textSize="8pt" />
 
         <TextView
@@ -41,11 +43,13 @@
 
         <EditText
             android:id="@+id/edtAnswerA"
-            android:layout_width="300dp"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvAnswerA"
             android:autofillHints="question content"
+            android:background="@color/light_gray"
             android:inputType="text"
+            android:padding="12dp"
             android:textSize="8pt" />
 
 
@@ -61,11 +65,13 @@
 
         <EditText
             android:id="@+id/edtAnswerB"
-            android:layout_width="300dp"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvAnswerB"
             android:autofillHints="question content"
+            android:background="@color/light_gray"
             android:inputType="text"
+            android:padding="12dp"
             android:textSize="8pt" />
 
         <TextView
@@ -80,11 +86,13 @@
 
         <EditText
             android:id="@+id/edtAnswerC"
-            android:layout_width="300dp"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvAnswerC"
             android:autofillHints="question content"
+            android:background="@color/light_gray"
             android:inputType="text"
+            android:padding="12dp"
             android:textSize="8pt" />
 
         <TextView
@@ -99,16 +107,18 @@
 
         <EditText
             android:id="@+id/edtAnswerD"
-            android:layout_width="300dp"
+            android:layout_width="275dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvAnswerD"
             android:autofillHints="question content"
+            android:background="@color/light_gray"
             android:inputType="text"
+            android:padding="12dp"
             android:textSize="8pt" />
 
         <RadioGroup
             android:id="@+id/rdgCorrectAnswer"
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_above="@id/vEnd"
             android:layout_below="@id/edtQuestionContent"
@@ -119,6 +129,7 @@
                 android:id="@+id/rdoAnswerA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_weight="1"
                 android:checked="true" />
 
@@ -126,18 +137,21 @@
                 android:id="@+id/rdoAnswerB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_weight="1" />
 
             <RadioButton
                 android:id="@+id/rdoAnswerC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_weight="1" />
 
             <RadioButton
                 android:id="@+id/rdoAnswerD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_weight="1" />
 
         </RadioGroup>
