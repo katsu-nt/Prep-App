@@ -99,7 +99,8 @@ public class StudentViewModel extends AndroidViewModel {
 
     public LiveData<Question> getQuestionByID(int id) {
         return repository.getQuestionByQuestionID(id);
-    public LiveData<Question> getQuestionById(int id) {
-        return repository.getQuestionById(id);
+    }
+    public LiveData<Question> getQuestionId(int id) {
+        return repository.getQuetsionId(id);
     }
 }

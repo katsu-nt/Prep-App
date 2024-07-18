@@ -200,14 +200,13 @@ public class QuestionFragment extends Fragment {
             answer = answerD;
         }
 
-        questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, subjectId),
-                () -> requireActivity().
-                        runOnUiThread(() -> {
-                            Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
-                            alertDialog.dismiss();
-                        }),
-                s -> requireActivity().
-
+//        questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, subjectId),
+//                () -> requireActivity().
+//                        runOnUiThread(() -> {
+//                            Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
+//                            alertDialog.dismiss();
+//                        }),
+//                s -> requireActivity().
     }
 
     @Override

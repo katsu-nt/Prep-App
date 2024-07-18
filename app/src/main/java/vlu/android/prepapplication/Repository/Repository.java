@@ -97,7 +97,7 @@ public class Repository {
     }
 
     public void delete(Question question) {
-        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.delete(question));
+        PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.deleteQuestion(question));
     }
 
     public LiveData<List<Classroom>> getAllClassroom() {
@@ -263,10 +263,7 @@ public class Repository {
         PrepDatabase.databaseWriteExecutor.execute(() -> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
     }
 
-    public LiveData<Classroom> getClassroomById(int id){return classroomDAO.getClassroomById(id);}
-    public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef){
-        PrepDatabase.databaseWriteExecutor.execute(()-> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
-    }
+
 
 
 
@@ -320,11 +317,12 @@ public class Repository {
     }
     public void updateTeacher(Teacher teacher){
         PrepDatabase.databaseWriteExecutor.execute(()-> teacherDAO.update(teacher));
-    }public void udpateStudent(Student student){
+    }
+    public void udpateStudent(Student student){
         PrepDatabase.databaseWriteExecutor.execute(()-> studentDAO.udpate(student));
     }
-    public LiveData<Question> getQuestionById(int id) {
-        return questionDAO.getQuestionById(id);
+    public LiveData<Question> getQuetsionId(int id) {
+        return questionDAO.getQuetsionId(id);
     }
 
 }

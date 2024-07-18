@@ -27,8 +27,7 @@ public interface QuestionDAO {
     public LiveData<Question> getQuestionByQuestionID(int id);
 
 
-    @Query("SELECT * FROM question WHERE questionId = :id AND subjectId = :subjectId")
-    public LiveData<Question> getQuestionByID(int id, int subjectId);
+
 
 
     @Update
@@ -38,7 +37,6 @@ public interface QuestionDAO {
 
     public void deleteQuestion(Question question);
 
-    public void delete(Question question);
     @Query("Select count(*) from question where subjectId = :subjectId")
     public LiveData<Integer> countQuestion(int subjectId);
 
@@ -47,5 +45,5 @@ public interface QuestionDAO {
             ") ORDER BY random_number LIMIT 10")
     public LiveData<List<Question>> getQuestionForExam(int subjectId);
     @Query("Select * from question where questionId = :id")
-    public LiveData<Question> getQuestionById (int id);
+    public LiveData<Question> getQuetsionId (int id);
 }

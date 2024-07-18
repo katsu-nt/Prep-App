@@ -166,7 +166,7 @@ public class ReviewFragment extends Fragment {
         questionList = new ArrayList<>();
         studentViewModel.getAllExam(examId).observe(getViewLifecycleOwner(),studentExamQuestionCrossRefs -> {
             studentExamQuestionCrossRefs.forEach(studentExamQuestionCrossRef -> {
-                studentViewModel.getQuestionById(studentExamQuestionCrossRef.getQuestionId()).observe(getViewLifecycleOwner(),question -> {
+                studentViewModel.getQuestionId(studentExamQuestionCrossRef.getQuestionId()).observe(getViewLifecycleOwner(),question -> {
                     questionList.add(question);
                     arrAnswer[questionList.size()-1] = studentExamQuestionCrossRef.getStudentAnswer();
                     loadQuestionData();
