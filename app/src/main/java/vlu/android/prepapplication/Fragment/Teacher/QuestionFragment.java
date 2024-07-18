@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,6 +29,7 @@ import android.widget.Toast;
 import java.util.Collections;
 
 import vlu.android.prepapplication.Adapter.RecyclerViewQuestionAdapter;
+import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.Model.Question;
 import vlu.android.prepapplication.R;
 import vlu.android.prepapplication.ViewModel.QuestionViewModel;
@@ -46,7 +51,7 @@ public class QuestionFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private QuestionViewModel questionViewModel;
-
+    private Button btnAccount;
     public QuestionFragment() {
         // Required empty public constructor
     }
@@ -201,5 +206,19 @@ public class QuestionFragment extends Fragment {
                         }),
                 s -> requireActivity().
                         runOnUiThread(() -> Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()));
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        btnAccount = view.findViewById(R.id.btnQuestionAccount);
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(1);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.setCancelable(false);
+            }
+        });
     }
 }

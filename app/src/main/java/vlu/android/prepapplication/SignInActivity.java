@@ -69,7 +69,6 @@ public class SignInActivity extends AppCompatActivity {
                             @Override
                             public void onChanged(Student student) {
                                 if (student != null && student.getPassword().equals(password)) {
-                                    Toast.makeText(SignInActivity.this, "Welcome " + student.getName(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(SignInActivity.this, StudentActivity.class);
                                     intent.putExtra("studentId", student.getStudentId());
                                     startActivity(intent);
@@ -87,7 +86,6 @@ public class SignInActivity extends AppCompatActivity {
                             @Override
                             public void onChanged(Teacher teacher) {
                                 if (teacher != null && teacher.getPassword().equals(password)) {
-                                    Toast.makeText(SignInActivity.this, "Welcome " + teacher.getName(), Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(SignInActivity.this, TeacherActivity.class);
                                     intent.putExtra("teacherId", teacher.getTeacherId());
                                     startActivity(intent);
@@ -109,6 +107,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -28,4 +28,10 @@ public interface QuestionDAO {
 
     @Delete
     public void delete(Question question);
+    @Query("Select count(*) from question where subjectId = :subjectId")
+    public LiveData<Integer> countQuestion (int subjectId);
+    @Query("SELECT * FROM ( " +
+            "SELECT *, RANDOM() AS random_number FROM question WHERE subjectId = :subjectId " +
+            ") ORDER BY random_number LIMIT 10")
+    public LiveData<List<Question>> getQuestionForExam(int subjectId);
 }

@@ -1,7 +1,6 @@
 package vlu.android.prepapplication.Fragment.Teacher;
 
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 
 import android.content.DialogInterface;
@@ -27,6 +26,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.Collections;
 
 import vlu.android.prepapplication.Adapter.GridViewClassroomAdapter;
+import vlu.android.prepapplication.Fragment.UpdateAccountDialogFragment;
 import vlu.android.prepapplication.Model.Classroom;
 import vlu.android.prepapplication.Model.Teacher;
 import vlu.android.prepapplication.R;
@@ -44,6 +44,7 @@ public class ClassroomFragment extends Fragment {
     private TeacherViewModel teacherViewModel;
     private Teacher teacher;
     private TextView txtTeacher;
+    Button btnAccount;
     private ClassroomViewModel classroomViewModel;
 
     public ClassroomFragment() {
@@ -77,15 +78,13 @@ public class ClassroomFragment extends Fragment {
 
         GridViewClassroomAdapter adapter = new GridViewClassroomAdapter(getContext(), classroomViewModel);
         grVClassroom.setAdapter(adapter);
-        //classroomViewModel.insert(new Classroom("Lop 01","Lop hoc 01",1));
         classroomViewModel.getAllClassromLiveData().observe(getViewLifecycleOwner(), adapter::updateClassroom);
 
         GridViewClassroomAdapter searchAdapter = new GridViewClassroomAdapter(getContext(), classroomViewModel);
         EditText edtSearchByID = view.findViewById(R.id.edtSearchByID);
         edtSearchByID.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -117,9 +116,9 @@ public class ClassroomFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-            }
+            public void afterTextChanged(Editable editable) {}
         });
+
         Button btnAdd = view.findViewById(R.id.btnAddClassroom);
         btnAdd.setOnClickListener(v -> {
             View dialog = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_add_classroom_layout, (ViewGroup) view.getRootView(), false);
@@ -146,15 +145,21 @@ public class ClassroomFragment extends Fragment {
             });
         });
 
-
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        teacherViewModel = new ViewModelProvider(requireActivity()).get(TeacherViewModel.class);
-//        teacherViewModel.insert(new Teacher("ben", "ben", "ben"));
+        teacherViewModel = new ViewModelProvider(requireActivity()).get(TeacherViewModel.class);
+        btnAccount = view.findViewById(R.id.btnClassAccount);
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UpdateAccountDialogFragment updateAccountDialogFragment = new UpdateAccountDialogFragment(1);
+                updateAccountDialogFragment.show(getActivity().getSupportFragmentManager(),null);
+                updateAccountDialogFragment.setCancelable(false);
+            }
+        });
     }
 }

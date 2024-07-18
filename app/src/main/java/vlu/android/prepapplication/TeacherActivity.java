@@ -16,8 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Set;
+
 import vlu.android.prepapplication.Fragment.Teacher.ClassroomFragment;
 import vlu.android.prepapplication.Fragment.Teacher.QuestionFragment;
+import vlu.android.prepapplication.Fragment.Teacher.SettingsFragment;
 import vlu.android.prepapplication.Fragment.Teacher.SubjectFragment;
 import vlu.android.prepapplication.ViewModel.TeacherViewModel;
 import vlu.android.prepapplication.databinding.ActivityTeacherBinding;
@@ -48,6 +51,9 @@ public class TeacherActivity extends AppCompatActivity {
                         break;
                     case "Subject":
                         replaceFragment(new SubjectFragment());
+                        break;
+                    case "Setting":
+                        replaceFragment(new SettingsFragment());
                         break;
                 }
                 return true;

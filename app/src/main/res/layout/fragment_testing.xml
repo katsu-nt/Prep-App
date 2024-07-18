@@ -37,7 +37,7 @@
                     android:padding="5dp"
                     android:textSize="8pt" />
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnAccount"
+                    android:id="@+id/btnTestingAccount"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/baseline_account_circle_24" />
@@ -64,7 +64,7 @@
             <Spinner
                 android:id="@+id/spinTestingClassroom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:padding="10dp"
                 android:background="@drawable/bg_blue_corner_16_border"
@@ -81,7 +81,7 @@
             <Spinner
                 android:id="@+id/spinTestingSubject"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="50dp"
                 android:padding="10dp"

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.Student.ReviewFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/txtExamId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="22dp"
+            android:textColor="@color/blue"
+            android:text="Exam ID" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewPrev"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="50dp"
+                android:background="@drawable/baseline_keyboard_arrow_left_24"
+                android:backgroundTint="@color/blue"
+                />
+            <TextView
+                android:id="@+id/txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Question" />
+            <TextView
+                android:id="@+id/txtReviewNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="1" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReviewNext"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/baseline_keyboard_arrow_right_24"
+                android:backgroundTint="@color/blue"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtReviewContent"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="TextView" />
+
+        <RadioGroup
+            android:id="@+id/rdReviewGr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Answer A"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/rdReviewA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="RadioButton" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Answer B"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/rdReviewB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="RadioButton" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Answer C"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/rdReviewC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="RadioButton" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Answer D"
+                android:textStyle="bold" />
+
+            <RadioButton
+                android:id="@+id/rdReviewD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="RadioButton" />
+        </RadioGroup>
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Correct Answer"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtCorrect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Correct Answer"
+
+            android:textStyle="bold" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:gravity="bottom|right"
+                android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnReviewCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_gray_corner_10"
+                    android:paddingHorizontal="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Cancel"
+                    ></androidx.appcompat.widget.AppCompatButton>
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</FrameLayout>
