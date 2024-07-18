@@ -39,6 +39,10 @@ public class QuestionViewModel extends AndroidViewModel {
         repository.insert(question, onSuccess, onFailure);
     }
 
+    public void update(Question question,Runnable onSuccess, Consumer<String> onFailure){
+        repository.update(question, onSuccess, onFailure);
+    }
+
     public boolean isCorrectAnswer(Question question, String answer) {
         return question.getCorrectAnswer().equals(answer);
     }

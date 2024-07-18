@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -22,6 +23,9 @@ public interface QuestionDAO {
     @Query("SELECT * FROM question WHERE questionId = :id AND subjectId = :subjectId")
     public LiveData<Question> getQuestionByID(int id, int subjectId);
 
+    @Update
+    public void update(Question question);
+
     @Delete
-    public void deleteQuestion(Question question);
+    public void delete(Question question);
 }

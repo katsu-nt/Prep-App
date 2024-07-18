@@ -150,41 +150,56 @@ public class QuestionFragment extends Fragment {
 
         Button btnAddQuestion = view.findViewById(R.id.btnAddQuestion);
         btnAddQuestion.setOnClickListener(v -> {
-            View dialog = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_add_question_layout, (ViewGroup) view.getRootView(), false);
-            EditText edtQuestionContent = dialog.findViewById(R.id.edtQuestionContent);
-            EditText edtAnswerA = dialog.findViewById(R.id.edtAnswerA);
-            EditText edtAnswerB = dialog.findViewById(R.id.edtAnswerB);
-            EditText edtAnswerC = dialog.findViewById(R.id.edtAnswerC);
-            EditText edtAnswerD = dialog.findViewById(R.id.edtAnswerD);
-            RadioGroup rdgCorrectAnswer = dialog.findViewById(R.id.rdgCorrectAnswer);
+            View dialogView = LayoutInflater.from(v.getContext()).
+                    inflate(R.layout.dialog_add_question_layout, (ViewGroup) view.getRootView(), false);
 
-            AlertDialog alertDialog = new AlertDialog.Builder(requireContext()).setTitle("New question").setView(dialog).setPositiveButton("Save", null).setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).show();
+            AlertDialog alertDialog = new AlertDialog.
+                    Builder(requireContext()).
+                    setTitle("New question").
+                    setView(dialogView).
+                    setPositiveButton("Save", null).
+                    setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.cancel()).
+                    show();
 
-            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(view1 -> {
-                String content = edtQuestionContent.getText().toString();
-                String answerA = edtAnswerA.getText().toString();
-                String answerB = edtAnswerB.getText().toString();
-                String answerC = edtAnswerC.getText().toString();
-                String answerD = edtAnswerD.getText().toString();
-
-                int correctAnswerId = rdgCorrectAnswer.getCheckedRadioButtonId();
-                String answer = answerA;
-
-                if (correctAnswerId == R.id.rdoAnswerB) {
-                    answer = answerB;
-                } else if (correctAnswerId == R.id.rdoAnswerC) {
-                    answer = answerC;
-                } else if (correctAnswerId == R.id.rdoAnswerD) {
-                    answer = answerD;
-                }
-
-                questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, subjectId), () -> requireActivity().runOnUiThread(() -> {
-                    Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
-                    alertDialog.dismiss();
-                }), s -> requireActivity().runOnUiThread(() -> Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()));
-            });
+            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).
+                    setOnClickListener(view1 -> handleAddQuestion(dialogView, alertDialog));
         });
 
         return view;
+    }
+
+    private void handleAddQuestion(View dialogView, AlertDialog alertDialog) {
+        EditText edtQuestionContent = dialogView.findViewById(R.id.edtQuestionContent);
+        EditText edtAnswerA = dialogView.findViewById(R.id.edtAnswerA);
+        EditText edtAnswerB = dialogView.findViewById(R.id.edtAnswerB);
+        EditText edtAnswerC = dialogView.findViewById(R.id.edtAnswerC);
+        EditText edtAnswerD = dialogView.findViewById(R.id.edtAnswerD);
+        RadioGroup rdgCorrectAnswer = dialogView.findViewById(R.id.rdgCorrectAnswer);
+
+        String content = edtQuestionContent.getText().toString();
+        String answerA = edtAnswerA.getText().toString();
+        String answerB = edtAnswerB.getText().toString();
+        String answerC = edtAnswerC.getText().toString();
+        String answerD = edtAnswerD.getText().toString();
+
+        int correctAnswerId = rdgCorrectAnswer.getCheckedRadioButtonId();
+        String answer = answerA;
+
+        if (correctAnswerId == R.id.rdoAnswerB) {
+            answer = answerB;
+        } else if (correctAnswerId == R.id.rdoAnswerC) {
+            answer = answerC;
+        } else if (correctAnswerId == R.id.rdoAnswerD) {
+            answer = answerD;
+        }
+
+        questionViewModel.insert(new Question(content, answerA, answerB, answerC, answerD, answer, subjectId),
+                () -> requireActivity().
+                        runOnUiThread(() -> {
+                            Toast.makeText(requireContext(), "successfully add new question", Toast.LENGTH_LONG).show();
+                            alertDialog.dismiss();
+                        }),
+                s -> requireActivity().
+                        runOnUiThread(() -> Toast.makeText(requireContext(), s, Toast.LENGTH_LONG).show()));
     }
 }
