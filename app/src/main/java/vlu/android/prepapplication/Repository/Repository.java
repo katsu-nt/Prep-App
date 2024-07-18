@@ -30,9 +30,11 @@ import vlu.android.prepapplication.Model.DAO.TeacherDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherNotiAndStudentNotiDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherNotificationDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherSubjectCrossRefDAO;
+import vlu.android.prepapplication.Model.Exam;
 import vlu.android.prepapplication.Model.PrepDatabase;
 import vlu.android.prepapplication.Model.Question;
 import vlu.android.prepapplication.Model.Student;
+import vlu.android.prepapplication.Model.StudentExamQuestionCrossRef;
 import vlu.android.prepapplication.Model.Subject;
 import vlu.android.prepapplication.Model.Teacher;
 
@@ -237,6 +239,27 @@ public class Repository {
     }
     public LiveData<List<Subject>> getSubjectsByClassroomId(List<Integer> ids){
         return subjectDAO.getSubjectsByClassroomId(ids);
+    }
+    public LiveData<Integer> countQuestion(int subjectId){
+        return questionDAO.countQuestion(subjectId);
+    }
+    public LiveData<List<Question>> getQuestionForExam(int subjectId){
+        return questionDAO.getQuestionForExam(subjectId);
+    }
+    public void submitExam(StudentExamQuestionCrossRef studentExamQuestionCrossRef){
+        PrepDatabase.databaseWriteExecutor.execute(()-> studentExamQuestionCrossRefDAO.insert(studentExamQuestionCrossRef));
+    }
+    public void insertExam(Exam exam){
+        PrepDatabase.databaseWriteExecutor.execute(()-> examDAO.insert(exam));
+    }
+    public LiveData<Integer> getNewestExamId(int subjectId){
+        return examDAO.getNewestExamId(subjectId);
+    }
+    public LiveData<List<Exam>> getExams(int subjectId){
+        return examDAO.getExams(subjectId);
+    }
+    public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int examId){
+        return studentExamQuestionCrossRefDAO.getAllExam(examId);
     }
 
 }

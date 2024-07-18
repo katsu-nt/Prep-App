@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,10 +53,12 @@ public class TestingFragment extends Fragment {
     private String mParam2;
     EditText edtSearhToJoin;
     Spinner spinClassroom, spinSubject;
+    Button btnTakeExam;
     private Student student;
     private StudentViewModel studentViewModel;
     private List<Classroom> listClassroom;
     private List<Subject> listSubjects;
+    private Subject selectedSubject;
     public TestingFragment() {
         // Required empty public constructor
     }
@@ -100,14 +105,13 @@ public class TestingFragment extends Fragment {
         studentViewModel = new ViewModelProvider((requireActivity())).get(StudentViewModel.class);
         loadSpinner(idStudent);
         addEvent(idStudent);
-
-
     }
 
     void addControl(View view){
         edtSearhToJoin = view.findViewById(R.id.edtSearchToJoin);
         spinClassroom = view.findViewById(R.id.spinTestingClassroom);
         spinSubject = view.findViewById(R.id.spinTestingSubject);
+        btnTakeExam = view.findViewById(R.id.btnTakeExam);
     }
     void addEvent(int idStudent){
         edtSearhToJoin.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -145,6 +149,8 @@ public class TestingFragment extends Fragment {
                             spinSubject.setAdapter(subjectAdapter);
                         });
                     });
+                }else{
+                    listSubjects = null;
                 }
             }
 
@@ -153,6 +159,45 @@ public class TestingFragment extends Fragment {
 
             }
         });
+        spinSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(listSubjects.size()>0){
+                    selectedSubject = listSubjects.get(position);
+                }else {
+                    selectedSubject = null;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        btnTakeExam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(selectedSubject!=null&& spinSubject.getAdapter().getCount()>0){
+                    studentViewModel.countQuestion(selectedSubject.getSubjectId()).observe(getViewLifecycleOwner(),count->{
+                        if(count>=10){
+                            getActivity().getIntent().putExtra("subjectId",selectedSubject.getSubjectId());
+                            replaceFragment(new InExamFragment());
+                        }else {
+                            Toast.makeText(getActivity(),"Subject is not able for take exam!",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }else {
+                    Toast.makeText(getActivity(),"Please select subject!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.flStudent, fragment);
+        fragmentTransaction.commit();
     }
     void loadSpinner(int idStudent){
         studentViewModel.getStudentById(idStudent).observe(getViewLifecycleOwner(),item->{

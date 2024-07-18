@@ -154,7 +154,5 @@ public class ClassroomFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        teacherViewModel = new ViewModelProvider(requireActivity()).get(TeacherViewModel.class);
-//        teacherViewModel.insert(new Teacher("ben", "ben", "ben"));
     }
 }
