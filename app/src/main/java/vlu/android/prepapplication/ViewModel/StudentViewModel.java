@@ -22,63 +22,83 @@ import vlu.android.prepapplication.Repository.Repository;
 public class StudentViewModel extends AndroidViewModel {
     private Repository repository;
     private LiveData<Student> student;
-    public StudentViewModel(@NonNull Application application){
+
+    public StudentViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
     }
-    public LiveData<Student> getStudentById(int id){
+
+    public LiveData<Student> getStudentById(int id) {
         student = repository.getStudentById(id);
         return student;
     }
 
-    public void insertStudent(Student student){
+    public void insertStudent(Student student) {
         repository.insertStudent(student);
     }
-    public LiveData<Classroom> getClassroomById(int id){
+
+    public LiveData<Classroom> getClassroomById(int id) {
         return repository.getClassroomById(id);
     }
-    public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef){
+
+    public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef) {
         repository.insertStudentToClassroom(classroomStudentCrossRef);
     }
-    public LiveData<Integer> checkJoined(int studentId,int classId){
-        return repository.checkJoined(studentId,classId);
+
+    public LiveData<Integer> checkJoined(int studentId, int classId) {
+        return repository.checkJoined(studentId, classId);
     }
-    public LiveData<List<Integer>> getListClassroomId(int studentId){
+
+    public LiveData<List<Integer>> getListClassroomId(int studentId) {
         return repository.getListClassroomId(studentId);
     }
-    public LiveData<List<Classroom>> getClassroomsByIds(List<Integer> ids){
+
+    public LiveData<List<Classroom>> getClassroomsByIds(List<Integer> ids) {
         return repository.getClassroomsByIds(ids);
     }
-    public LiveData<List<Subject>> getSubjectsByClassroomId(List<Integer> ids){
+
+    public LiveData<List<Subject>> getSubjectsByClassroomId(List<Integer> ids) {
         return repository.getSubjectsByClassroomId(ids);
     }
-    public LiveData<List<Integer>> getSubjectIds(int classroomId){
+
+    public LiveData<List<Integer>> getSubjectIds(int classroomId) {
         return repository.getSubjectIds(classroomId);
     }
-    public LiveData<Subject> getSubjectById(int id){
+
+    public LiveData<Subject> getSubjectById(int id) {
         return repository.getSubjectByID(id);
     }
-    public LiveData<Integer> countQuestion(int subjectId){
+
+    public LiveData<Integer> countQuestion(int subjectId) {
         return repository.countQuestion(subjectId);
     }
-    public LiveData<List<Question>> getQuestionForExam(int subjectId){
+
+    public LiveData<List<Question>> getQuestionForExam(int subjectId) {
         return repository.getQuestionForExam(subjectId);
     }
-    public void submitExam(StudentExamQuestionCrossRef studentExamQuestionCrossRef){
+
+    public void submitExam(StudentExamQuestionCrossRef studentExamQuestionCrossRef) {
         repository.submitExam(studentExamQuestionCrossRef);
     }
-    public void insertExam(Exam exam){
+
+    public void insertExam(Exam exam) {
         repository.insertExam(exam);
     }
-    public LiveData<Integer> getNewestExamId(int subjectId){
+
+    public LiveData<Integer> getNewestExamId(int subjectId) {
         return repository.getNewestExamId(subjectId);
     }
-    public LiveData<List<Exam>> getExams(int subjectId){
+
+    public LiveData<List<Exam>> getExams(int subjectId) {
         return repository.getExams(subjectId);
     }
-    public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int examId){
+
+    public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int examId) {
         return repository.getAllExam(examId);
     }
+
+    public LiveData<Question> getQuestionByID(int id) {
+        return repository.getQuestionByQuestionID(id);
     public LiveData<Question> getQuestionById(int id) {
         return repository.getQuestionById(id);
     }

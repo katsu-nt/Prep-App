@@ -92,6 +92,10 @@ public class Repository {
         return questionDAO.getQuestionByID(id, subjectId);
     }
 
+    public LiveData<Question> getQuestionByQuestionID(int id) {
+        return questionDAO.getQuestionByQuestionID(id);
+    }
+
     public void delete(Question question) {
         PrepDatabase.databaseWriteExecutor.execute(() -> questionDAO.delete(question));
     }
@@ -99,8 +103,9 @@ public class Repository {
     public LiveData<List<Classroom>> getAllClassroom() {
         return classroomDAO.getAllClassroom();
     }
-    public LiveData<List<Student>> getAllStudent(){
-        return  studentDAO.getAllStudent();
+
+    public LiveData<List<Student>> getAllStudent() {
+        return studentDAO.getAllStudent();
     }
 
     public LiveData<Classroom> getClassroomByID(int id) {
@@ -250,10 +255,19 @@ public class Repository {
     }
 
 
+    public LiveData<Classroom> getClassroomById(int id) {
+        return classroomDAO.getClassroomById(id);
+    }
+
+    public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
+    }
+
     public LiveData<Classroom> getClassroomById(int id){return classroomDAO.getClassroomById(id);}
     public void insertStudentToClassroom(ClassroomStudentCrossRef classroomStudentCrossRef){
         PrepDatabase.databaseWriteExecutor.execute(()-> classroomStudentCrossRefDAO.insert(classroomStudentCrossRef));
     }
+
 
 
     public LiveData<Integer> checkJoined(int studentId, int classId) {
@@ -276,25 +290,32 @@ public class Repository {
         return subjectDAO.getSubjectsByClassroomId(ids);
     }
 
+
     public LiveData<Integer> countQuestion(int subjectId){
         return questionDAO.countQuestion(subjectId);
     }
-    public LiveData<List<Question>> getQuestionForExam(int subjectId){
+
+    public LiveData<List<Question>> getQuestionForExam(int subjectId) {
         return questionDAO.getQuestionForExam(subjectId);
     }
-    public void submitExam(StudentExamQuestionCrossRef studentExamQuestionCrossRef){
-        PrepDatabase.databaseWriteExecutor.execute(()-> studentExamQuestionCrossRefDAO.insert(studentExamQuestionCrossRef));
+
+    public void submitExam(StudentExamQuestionCrossRef studentExamQuestionCrossRef) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> studentExamQuestionCrossRefDAO.insert(studentExamQuestionCrossRef));
     }
-    public void insertExam(Exam exam){
-        PrepDatabase.databaseWriteExecutor.execute(()-> examDAO.insert(exam));
+
+    public void insertExam(Exam exam) {
+        PrepDatabase.databaseWriteExecutor.execute(() -> examDAO.insert(exam));
     }
-    public LiveData<Integer> getNewestExamId(int subjectId){
+
+    public LiveData<Integer> getNewestExamId(int subjectId) {
         return examDAO.getNewestExamId(subjectId);
     }
-    public LiveData<List<Exam>> getExams(int subjectId){
+
+    public LiveData<List<Exam>> getExams(int subjectId) {
         return examDAO.getExams(subjectId);
     }
-    public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int examId){
+
+    public LiveData<List<StudentExamQuestionCrossRef>> getAllExam(int examId) {
         return studentExamQuestionCrossRefDAO.getAllExam(examId);
     }
     public void updateTeacher(Teacher teacher){
