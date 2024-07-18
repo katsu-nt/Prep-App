@@ -150,7 +150,5 @@ public class ClassroomFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         teacherViewModel = new ViewModelProvider(requireActivity()).get(TeacherViewModel.class);
-        // Ensure you are not inserting the same Teacher multiple times
-        // teacherViewModel.insert(new Teacher("ben", "ben", "ben"));
     }
 }

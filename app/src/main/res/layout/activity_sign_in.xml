@@ -103,6 +103,7 @@
                    android:layout_height="wrap_content"
                    android:layout_weight="1"
                    android:checked="true"
+                   android:layout_marginLeft="50dp"
                    android:onClick="choseRole"
                    android:text="Student"
                    />
