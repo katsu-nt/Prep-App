@@ -25,23 +25,35 @@ import vlu.android.prepapplication.Model.DAO.TeacherNotiAndStudentNotiDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherNotificationDAO;
 import vlu.android.prepapplication.Model.DAO.TeacherSubjectCrossRefDAO;
 
-@Database(entities = {Teacher.class,Student.class,Classroom.class, Subject.class,
-        Question.class,StudentNotification.class,TeacherNotification.class, Exam.class,
-        ClassroomSubjectCrossRef.class,TeacherSubjectCrossRef.class,ClassroomStudentCrossRef.class,
-        StudentExamQuestionCrossRef.class,TeacherNotiAndStudentNoti.class},version = 1,exportSchema = false)
+@Database(entities = {Teacher.class, Student.class, Classroom.class, Subject.class,
+        Question.class, StudentNotification.class, TeacherNotification.class, Exam.class,
+        ClassroomSubjectCrossRef.class, TeacherSubjectCrossRef.class, ClassroomStudentCrossRef.class,
+        StudentExamQuestionCrossRef.class, TeacherNotiAndStudentNoti.class}, version = 1, exportSchema = false)
 public abstract class PrepDatabase extends RoomDatabase {
     public abstract TeacherDAO teacherDAO();
+
     public abstract StudentDAO studentDAO();
+
     public abstract ClassroomDAO classroomDAO();
+
     public abstract SubjectDAO subjectDAO();
+
     public abstract QuestionDAO questionDAO();
+
     public abstract ExamDAO examDAO();
+
     public abstract StudentNotificationDAO studentNotificationDAO();
+
     public abstract TeacherSubjectCrossRefDAO teacherSubjectCrossRefDAO();
+
     public abstract TeacherNotificationDAO teacherNotificationDAO();
+
     public abstract ClassroomSubjectCrossRefDAO classroomSubjectCrossRefDAO();
+
     public abstract ClassroomStudentCrossRefDAO classroomStudentCrossRefDAO();
+
     public abstract StudentExamQuestionCrossRefDAO studentExamQuestionCrossRefDAO();
+
     public abstract TeacherNotiAndStudentNotiDAO teacherNotiAndStudentNotiDAO();
 
 
@@ -62,6 +74,7 @@ public abstract class PrepDatabase extends RoomDatabase {
         }
         return INSTANCE;
     }
+
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -73,99 +86,91 @@ public abstract class PrepDatabase extends RoomDatabase {
                 // Populate the database in the background.
                 // If you want to start with more words, just add them.
                 TeacherDAO dao = INSTANCE.teacherDAO();
-                Teacher teacher = new Teacher("teacher","teacher01","123456");
+                Teacher teacher = new Teacher("teacher", "teacher01", "123456");
                 dao.insert(teacher);
-                teacher = new Teacher("teacher01","teacher02","123456");
+                teacher = new Teacher("teacher01", "teacher02", "123456");
                 dao.insert(teacher);
-                teacher = new Teacher("teacher02","teacher03","123456");
+                teacher = new Teacher("teacher02", "teacher03", "123456");
                 dao.insert(teacher);
                 StudentDAO daost = INSTANCE.studentDAO();
-                Student st = new Student("student","student01","123456");
+                Student st = new Student("student", "student01", "123456");
                 daost.insert(st);
-                st = new Student("student01","student02","123456");
+                st = new Student("student01", "student02", "123456");
                 daost.insert(st);
-                st = new Student("student01","student03","123456");
+                st = new Student("student01", "student03", "123456");
                 daost.insert(st);
                 ClassroomDAO daocl = INSTANCE.classroomDAO();
-                Classroom cl = new Classroom("class-A","description-01",1);
+                Classroom cl = new Classroom("class-A", "description-01", 1);
                 daocl.insert(cl);
-                cl = new Classroom("class-B","description-02",1);
+                cl = new Classroom("class-B", "description-02", 1);
                 daocl.insert(cl);
-                cl = new Classroom("class-C","description-03",1);
+                cl = new Classroom("class-C", "description-03", 1);
                 daocl.insert(cl);
                 SubjectDAO daosb = INSTANCE.subjectDAO();
-                Subject sj = new Subject("Subject A","description-01");
-                daosb.insert(sj);
-                sj = new Subject("Subject B","description-02");
-                daosb.insert(sj);
-                sj = new Subject("Subject C","description-03");
-                daosb.insert(sj);
+                Subject math = new Subject("Math", "description-01");
+                daosb.insert(math);
+                Subject english = new Subject("English", "description-02");
+                daosb.insert(english);
                 QuestionDAO daoqs = INSTANCE.questionDAO();
-                Question qs = new Question("Content 01","A","B","C","D","A",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 02","A","B","C","D","B",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 03","A","B","C","D","C",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 04","A","B","C","D","D",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 05","A","B","C","D","A",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 06","A","B","C","D","B",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 07","A","B","C","D","C",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 08","A","B","C","D","D",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 09","A","B","C","D","A",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 10","A","B","C","D","B",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 11","A","B","C","D","C",1);
-                daoqs.insert(qs);
-                qs = new Question("Content 12","A","B","C","D","D",1);
-                daoqs.insert(qs);
+                daoqs.insert(new Question("What is 5 + 3?", "6", "7", "8", "9", "8", 1));
+                daoqs.insert(new Question("What is the square root of 16?", "2", "4", "6", "8", "4", 1));
+                daoqs.insert(new Question("What is 9 * 9?", "81", "72", "90", "99", "81", 1));
+                daoqs.insert(new Question("What is 15 / 3?", "3", "5", "10", "12", "5", 1));
+                daoqs.insert(new Question("What is 2^3?", "6", "7", "8", "9", "8", 1));
+                daoqs.insert(new Question("What is 12 - 5?", "6", "7", "8", "9", "7", 1));
+                daoqs.insert(new Question("What is 7 * 6?", "42", "36", "48", "54", "42", 1));
+                daoqs.insert(new Question("What is 20 / 4?", "4", "5", "6", "7", "5", 1));
+                daoqs.insert(new Question("What is 14 + 9?", "21", "22", "23", "24", "23", 1));
+                daoqs.insert(new Question("What is 3^2?", "6", "8", "9", "12", "9", 1));
+                daoqs.insert(new Question("What is the synonym of 'happy'?", "Sad", "Joyful", "Angry", "Tired", "Joyful", 2));
+                daoqs.insert(new Question("Which word is a noun?", "Run", "Quickly", "Happiness", "Bright", "Happiness", 2));
+                daoqs.insert(new Question("What is the antonym of 'begin'?", "Start", "Initiate", "Finish", "Open", "Finish", 2));
+                daoqs.insert(new Question("Which word is an adjective?", "Blue", "Swiftly", "Run", "Courage", "Blue", 2));
+                daoqs.insert(new Question("What is the past tense of 'go'?", "Goes", "Gone", "Went", "Going", "Went", 2));
+                daoqs.insert(new Question("What is the synonym of 'big'?", "Small", "Tiny", "Large", "Narrow", "Large", 2));
+                daoqs.insert(new Question("Which word is a verb?", "Run", "Blue", "Happiness", "Quick", "Run", 2));
+                daoqs.insert(new Question("What is the antonym of 'hot'?", "Warm", "Cold", "Boiling", "Sizzling", "Cold", 2));
+                daoqs.insert(new Question("Which word is an adverb?", "Quickly", "Cat", "Jump", "Beautiful", "Quickly", 2));
+                daoqs.insert(new Question("What is the plural of 'mouse'?", "Mouses", "Mice", "Mous", "Mouse", "Mice", 2));
                 ExamDAO daoex = INSTANCE.examDAO();
                 Exam ex = new Exam(1);
                 daoex.insert(ex);
+                ex = new Exam(2);
+                daoex.insert(ex);
                 TeacherNotificationDAO daont = INSTANCE.teacherNotificationDAO();
-                TeacherNotification tc = new TeacherNotification("Student01 want to join",-1,1);
+                TeacherNotification tc = new TeacherNotification("Student01 want to join", -1, 1);
                 daont.insert(tc);
                 StudentNotificationDAO dao1 = INSTANCE.studentNotificationDAO();
-                StudentNotification tc1 = new StudentNotification("Your request in waiting",1);
+                StudentNotification tc1 = new StudentNotification("Your request in waiting", 1);
                 dao1.insert(tc1);
                 TeacherNotiAndStudentNotiDAO daotcst = INSTANCE.teacherNotiAndStudentNotiDAO();
-                TeacherNotiAndStudentNoti tcst = new TeacherNotiAndStudentNoti(1,1);
+                TeacherNotiAndStudentNoti tcst = new TeacherNotiAndStudentNoti(1, 1);
                 daotcst.insert(tcst);
                 TeacherSubjectCrossRefDAO daotcsb = INSTANCE.teacherSubjectCrossRefDAO();
-                TeacherSubjectCrossRef tcsb = new TeacherSubjectCrossRef(1,1);
+                TeacherSubjectCrossRef tcsb = new TeacherSubjectCrossRef(1, 1);
                 daotcsb.insert(tcsb);
-                tcsb = new TeacherSubjectCrossRef(1,2);
-                daotcsb.insert(tcsb);
-                tcsb = new TeacherSubjectCrossRef(1,3);
+                tcsb = new TeacherSubjectCrossRef(1, 2);
                 daotcsb.insert(tcsb);
                 ClassroomSubjectCrossRefDAO daoclsb = INSTANCE.classroomSubjectCrossRefDAO();
-                ClassroomSubjectCrossRef clsb = new ClassroomSubjectCrossRef(1,1);
+                ClassroomSubjectCrossRef clsb = new ClassroomSubjectCrossRef(1, 1);
                 daoclsb.insert(clsb);
-                clsb = new ClassroomSubjectCrossRef(1,2);
-                daoclsb.insert(clsb);
-                clsb = new ClassroomSubjectCrossRef(1,3);
+                clsb = new ClassroomSubjectCrossRef(1, 2);
                 daoclsb.insert(clsb);
                 ClassroomStudentCrossRefDAO daoclst = INSTANCE.classroomStudentCrossRefDAO();
-                ClassroomStudentCrossRef clst = new ClassroomStudentCrossRef(1,1);
+                ClassroomStudentCrossRef clst = new ClassroomStudentCrossRef(1, 1);
                 daoclst.insert(clst);
-                clst = new ClassroomStudentCrossRef(1,2);
+                clst = new ClassroomStudentCrossRef(2, 2);
                 daoclst.insert(clst);
-                clst = new ClassroomStudentCrossRef(1,3);
+                clst = new ClassroomStudentCrossRef(1, 3);
                 daoclst.insert(clst);
-                StudentExamQuestionCrossRefDAO daostex = INSTANCE.studentExamQuestionCrossRefDAO();
 
-                StudentExamQuestionCrossRef stex = new StudentExamQuestionCrossRef(1,1,1,"A");
-                daostex.insert(stex);
-                stex = new StudentExamQuestionCrossRef(2,1,1,"C");
-                daostex.insert(stex);
-                stex = new StudentExamQuestionCrossRef(3,1,1,"D");
-                daostex.insert(stex);
+//                StudentExamQuestionCrossRefDAO daostex = INSTANCE.studentExamQuestionCrossRefDAO();
+//                StudentExamQuestionCrossRef stex = new StudentExamQuestionCrossRef(1, 1, 1, "8");
+//                daostex.insert(stex);
+//                stex = new StudentExamQuestionCrossRef(2, 1, 1, "81");
+//                daostex.insert(stex);
+//                stex = new StudentExamQuestionCrossRef(3, 1, 1, "4");
+//                daostex.insert(stex);
             });
 
         }
