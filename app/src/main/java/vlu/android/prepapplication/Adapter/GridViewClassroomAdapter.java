@@ -2,6 +2,7 @@ package vlu.android.prepapplication.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,8 +76,16 @@ public class GridViewClassroomAdapter extends BaseAdapter {
                 AppCompatActivity activity = (AppCompatActivity) context;
                 FragmentManager fragmentManager = activity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                Fragment fragment = new DetailedClassroomFragment();
-                fragmentTransaction.replace(R.id.flTeacher, fragment);
+
+                DetailedClassroomFragment detailedClassroomFragment = new DetailedClassroomFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("classname", classroom1.getName());
+                bundle.putInt("classid", classroom1.getClassroomId());
+                bundle.putString("description", classroom1.getDescription());
+                detailedClassroomFragment.setArguments(bundle);
+
+                fragmentTransaction.replace(R.id.flTeacher, detailedClassroomFragment);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });

@@ -1,7 +1,6 @@
 package vlu.android.prepapplication.Fragment.Teacher;
 
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 
 import android.content.DialogInterface;
@@ -77,15 +76,13 @@ public class ClassroomFragment extends Fragment {
 
         GridViewClassroomAdapter adapter = new GridViewClassroomAdapter(getContext(), classroomViewModel);
         grVClassroom.setAdapter(adapter);
-        //classroomViewModel.insert(new Classroom("Lop 01","Lop hoc 01",1));
         classroomViewModel.getAllClassromLiveData().observe(getViewLifecycleOwner(), adapter::updateClassroom);
 
         GridViewClassroomAdapter searchAdapter = new GridViewClassroomAdapter(getContext(), classroomViewModel);
         EditText edtSearchByID = view.findViewById(R.id.edtSearchByID);
         edtSearchByID.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -117,9 +114,9 @@ public class ClassroomFragment extends Fragment {
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-            }
+            public void afterTextChanged(Editable editable) {}
         });
+
         Button btnAdd = view.findViewById(R.id.btnAddClassroom);
         btnAdd.setOnClickListener(v -> {
             View dialog = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_add_classroom_layout, (ViewGroup) view.getRootView(), false);
@@ -146,13 +143,12 @@ public class ClassroomFragment extends Fragment {
             });
         });
 
-
         return view;
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        teacherViewModel = new ViewModelProvider(requireActivity()).get(TeacherViewModel.class);
     }
 }

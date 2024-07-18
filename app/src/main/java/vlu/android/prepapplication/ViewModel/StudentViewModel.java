@@ -1,7 +1,9 @@
 package vlu.android.prepapplication.ViewModel;
 
 import android.app.Application;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -20,7 +22,7 @@ import vlu.android.prepapplication.Repository.Repository;
 public class StudentViewModel extends AndroidViewModel {
     private Repository repository;
     private LiveData<Student> student;
-    public StudentViewModel(Application application){
+    public StudentViewModel(@NonNull Application application){
         super(application);
         repository = new Repository(application);
     }
